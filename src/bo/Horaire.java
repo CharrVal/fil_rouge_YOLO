@@ -1,5 +1,5 @@
 package bo;
 
-public class Horaires {
+public class Horaire {
 
 }

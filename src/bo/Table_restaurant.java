@@ -1,5 +1,5 @@
 package bo;
 
-public class Tables_restaurants {
+public class Table_restaurant {
 
 }
