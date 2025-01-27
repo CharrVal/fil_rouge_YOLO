@@ -1,23 +1,23 @@
 package bo;
 
-public class Cartes {
+public class Carte {
 	private int id;
 	private String nom;
 	private String description;
 	//private List<Plats> liste_plats = new ArrayList<>();
 	
-	public Cartes(int id, String nom, String description) {
+	public Carte(int id, String nom, String description) {
 		this.id = id;
 		this.nom = nom;
 		this.description = description;
 	}
 	
-	public Cartes(String nom, String description) {
+	public Carte(String nom, String description) {
 		this.nom = nom;
 		this.description = description;
 	}
 	
-	public Cartes() {}
+	public Carte() {}
 
 	public int getId() {
 		return id;

@@ -2,18 +2,18 @@ package bll;
 
 import java.util.List;
 
-import bo.Cartes;
+import bo.Carte;
 import dal.CarteDAO;
 import exceptions.CarteException;
 
 public class CarteBLL {
-	public List<Cartes> select() {
+	public List<Carte> select() {
 		CarteDAO dao = new CarteDAO();
 		return dao.select();
 	}
 
-	public Cartes insert(String nom, String description) throws Exception {
-		Cartes restaurant = new Cartes(nom, description);
+	public Carte insert(String nom, String description) throws Exception {
+		Carte restaurant = new Carte(nom, description);
 		checkCartes(restaurant);
 		
 		CarteDAO dao = new CarteDAO();
@@ -22,13 +22,13 @@ public class CarteBLL {
 		return restaurant;
 	}
 	
-	private void checkCartes(Cartes carte) throws CarteException {
+	private void checkCartes(Carte carte) throws CarteException {
 		// if (cartes.getNom() == null || cartes.getNom().length() < 2 || cartes.getNom().length() > 20) {
 			// throw new CartesException("Le nom doit faire entre 2 et 20 caractères.");
 		// les if sont à déterminer !
 		}
 	
-	public void update(Cartes carte) throws CarteException {
+	public void update(Carte carte) throws CarteException {
 		checkCartes(carte);
 		
 		CarteDAO dao = new CarteDAO();

@@ -1,25 +1,23 @@
 package bo;
 
-public class Restaurants {
+public class Restaurant {
 	private int id;
 	private String nom;
 	private String url_image;
 	private int id_cartes;
 	
-	public Restaurants(int id, String nom, String url_image, int id_cartes) {
+	public Restaurant(int id, String nom, String url_image) {
 		this.id = id;
 		this.nom = nom;
 		this.url_image = url_image;
-		this.id_cartes = id_cartes;
 	}
 	
-	public Restaurants(String nom, String url_image, int id_cartes) {
+	public Restaurant(String nom, String url_image) {
 		this.nom = nom;
 		this.url_image = url_image;
-		this.id_cartes = id_cartes;
 	}
 	
-	public Restaurants() {}
+	public Restaurant() {}
 
 	public int getId() {
 		return id;

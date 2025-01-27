@@ -8,12 +8,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import bo.Cartes;
+import bo.Carte;
 
 public class CarteDAO {
 
-	public List<Cartes> select() {
-		List<Cartes> cartes = new ArrayList<>();
+	public List<Carte> select() {
+		List<Carte> carte = new ArrayList<>();
 		
 		try {
 			Connection cnx = DriverManager.getConnection("jdbc:sqlserver://Ouessant-10;databasename=DEMO_YOLO;username=Utilisateur1;password=Utilisateur1;trustservercertificate=true");
@@ -22,17 +22,17 @@ public class CarteDAO {
 				ResultSet rs = ps.executeQuery();
 				
 				while (rs.next()) {
-					cartes.add(convertResultSetToCartes(rs));
+					carte.add(convertResultSetToCartes(rs));
 				}
 			}
 			cnx.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return cartes;
+		return carte;
 	}
 
-	public Cartes insert(Cartes carte) {
+	public Carte insert(Carte carte) {
 		try {
 			Connection cnx = DriverManager.getConnection("jdbc:sqlserver://Ouessant-10;databasename=DEMO_YOLO;username=Utilisateur1;password=Utilisateur1;trustservercertificate=true");
 			if(!cnx.isClosed()) {
@@ -55,7 +55,7 @@ public class CarteDAO {
 		return carte;
 	}
 
-	public void update(Cartes carte) {
+	public void update(Carte carte) {
 		try {
 			Connection cnx = DriverManager.getConnection("jdbc:sqlserver://Ouessant-10;databasename=DEMO_YOLO;username=Utilisateur1;password=Utilisateur1;trustservercertificate=true");
 			if(!cnx.isClosed()) {
@@ -87,8 +87,8 @@ public class CarteDAO {
 		}
 	}
 	
- 	private Cartes convertResultSetToCartes(ResultSet rs) throws SQLException {
-		Cartes carte = new Cartes();
+ 	private Carte convertResultSetToCartes(ResultSet rs) throws SQLException {
+		Carte carte = new Carte();
 		carte.setId(rs.getInt("id"));
 		carte.setNom(rs.getString("nom"));
 		carte.setDescription(rs.getString("description"));
