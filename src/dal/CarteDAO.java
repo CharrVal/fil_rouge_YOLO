@@ -11,12 +11,16 @@ import java.util.List;
 import bo.Carte;
 
 public class CarteDAO {
+	
+	String url = System.getenv("FIL_ROUGE_URL");
+	String username = System.getenv("FIL_ROUGE_USERNAME");
+	String password = System.getenv("FIL_ROUGE_PASSWORD");
 
 	public List<Carte> select() {
 		List<Carte> carte = new ArrayList<>();
 		
 		try {
-			Connection cnx = DriverManager.getConnection("jdbc:sqlserver://Ouessant-10;databasename=DEMO_YOLO;username=Utilisateur1;password=Utilisateur1;trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection("url;username=username;password=password;trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement("SELECT * FROM cartes");
 				ResultSet rs = ps.executeQuery();
@@ -34,7 +38,7 @@ public class CarteDAO {
 
 	public Carte insert(Carte carte) {
 		try {
-			Connection cnx = DriverManager.getConnection("jdbc:sqlserver://Ouessant-10;databasename=DEMO_YOLO;username=Utilisateur1;password=Utilisateur1;trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection("url;username=username;password=password;trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement(
 						"INSERT INTO cartes(nom, description)"
@@ -57,7 +61,7 @@ public class CarteDAO {
 
 	public void update(Carte carte) {
 		try {
-			Connection cnx = DriverManager.getConnection("jdbc:sqlserver://Ouessant-10;databasename=DEMO_YOLO;username=Utilisateur1;password=Utilisateur1;trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection("url;username=username;password=password;trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement(
 						"UPDATE cartes SET nom = ?, description = ? WHERE id = ?");
@@ -75,7 +79,7 @@ public class CarteDAO {
 
 	public void delete(int id) {
 		try {
-			Connection cnx = DriverManager.getConnection("jdbc:sqlserver://Ouessant-10;databasename=DEMO_YOLO;username=Utilisateur1;password=Utilisateur1;trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection("url;username=username;password=password;trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement("DELETE FROM cartes WHERE id = ?");
 				ps.setInt(1, id);
