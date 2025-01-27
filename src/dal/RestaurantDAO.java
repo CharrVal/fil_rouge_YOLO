@@ -12,11 +12,15 @@ import bo.Restaurant;
 
 public class RestaurantDAO {
 	
+	String url = System.getenv("FIL_ROUGE_URL");
+	String username = System.getenv("FIL_ROUGE_USERNAME");
+	String password = System.getenv("FIL_ROUGE_PASSWORD");
+	
 	public List<Restaurant> select() {
 		List<Restaurant> restaurant = new ArrayList<>();
 		
 		try {
-			Connection cnx = DriverManager.getConnection("jdbc:sqlserver://Ouessant-10;databasename=DEMO_YOLO;username=Utilisateur1;password=Utilisateur1;trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection("FIL_ROUGE_URL;username=FIL_ROUGE_USERNAME;password=FIL_ROUGE_PASSWORD;trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement("SELECT * FROM restaurants");
 				ResultSet rs = ps.executeQuery();
@@ -34,7 +38,7 @@ public class RestaurantDAO {
 
 	public Restaurant insert(Restaurant restaurant) {
 		try {
-			Connection cnx = DriverManager.getConnection("jdbc:sqlserver://Ouessant-10;databasename=DEMO_YOLO;username=Utilisateur1;password=Utilisateur1;trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection("FIL_ROUGE_URL;username=FIL_ROUGE_USERNAME;password=FIL_ROUGE_PASSWORD;trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement(
 						"INSERT INTO restaurants(nom, url_image, id_cartes)"
@@ -59,7 +63,7 @@ public class RestaurantDAO {
 	
 	public void update(Restaurant restaurant) {
 		try {
-			Connection cnx = DriverManager.getConnection("jdbc:sqlserver://Ouessant-10;databasename=DEMO_YOLO;username=Utilisateur1;password=Utilisateur1;trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection("FIL_ROUGE_URL;username=FIL_ROUGE_USERNAME;password=FIL_ROUGE_PASSWORD;trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement(
 						"UPDATE restaurants SET nom = ?, url_image = ?, id_cartes = ? WHERE id = ?");
@@ -78,7 +82,7 @@ public class RestaurantDAO {
 	
 	public void delete(int id) {
 		try {
-			Connection cnx = DriverManager.getConnection("jdbc:sqlserver://Ouessant-10;databasename=DEMO_YOLO;username=Utilisateur1;password=Utilisateur1;trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection("FIL_ROUGE_URL;username=FIL_ROUGE_USERNAME;password=FIL_ROUGE_PASSWORD;trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement("DELETE FROM restaurants WHERE id = ?");
 				ps.setInt(1, id);
