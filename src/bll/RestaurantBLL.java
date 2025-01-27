@@ -7,6 +7,8 @@ import dal.RestaurantDAO;
 import exceptions.RestaurantException;
 
 public class RestaurantBLL {
+	
+	
 
 	public List<Restaurant> select() {
 		RestaurantDAO dao = new RestaurantDAO();

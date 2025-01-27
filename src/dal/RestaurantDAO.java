@@ -26,7 +26,9 @@ public class RestaurantDAO {
 		List<Restaurant> restaurant = new ArrayList<>();
 		
 		try {
-			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");	
+			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
+			//Connection cnx = DriverManager.getConnection("jdbc:sqlserver://localhost;databasename=YOLO;username=regis;password=regis;trustservercertificate=true");
+
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement("SELECT * FROM restaurants");
 				ResultSet rs = ps.executeQuery();
@@ -44,7 +46,8 @@ public class RestaurantDAO {
 
 	public Restaurant insert(Restaurant restaurant) {
 		try {
-			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");	
+			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
+
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement(
 						"INSERT INTO restaurants(nom, url_image, id_cartes)"
@@ -70,6 +73,7 @@ public class RestaurantDAO {
 	public void update(Restaurant restaurant) {
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");	
+
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement(
 						"UPDATE restaurants SET nom = ?, url_image = ?, id_cartes = ? WHERE id = ?");
@@ -89,6 +93,7 @@ public class RestaurantDAO {
 	public void delete(int id) {
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");	
+
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement("DELETE FROM restaurants WHERE id = ?");
 				ps.setInt(1, id);
