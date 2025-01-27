@@ -8,12 +8,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import bo.Restaurants;
+import bo.Restaurant;
 
-public class RestaurantsDAO {
+public class RestaurantDAO {
 	
-	public List<Restaurants> select() {
-		List<Restaurants> restaurants = new ArrayList<>();
+	public List<Restaurant> select() {
+		List<Restaurant> restaurant = new ArrayList<>();
 		
 		try {
 			Connection cnx = DriverManager.getConnection("jdbc:sqlserver://Ouessant-10;databasename=DEMO_YOLO;username=Utilisateur1;password=Utilisateur1;trustservercertificate=true");
@@ -22,17 +22,17 @@ public class RestaurantsDAO {
 				ResultSet rs = ps.executeQuery();
 				
 				while (rs.next()) {
-					restaurants.add(convertResultSetToRestaurant(rs));
+					restaurant.add(convertResultSetToRestaurant(rs));
 				}
 			}
 			cnx.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return restaurants;
+		return restaurant;
 	}
 
-	public Restaurants insert(Restaurants restaurant) {
+	public Restaurant insert(Restaurant restaurant) {
 		try {
 			Connection cnx = DriverManager.getConnection("jdbc:sqlserver://Ouessant-10;databasename=DEMO_YOLO;username=Utilisateur1;password=Utilisateur1;trustservercertificate=true");
 			if(!cnx.isClosed()) {
@@ -57,7 +57,7 @@ public class RestaurantsDAO {
 		return restaurant;
 	}
 	
-	public void update(Restaurants restaurant) {
+	public void update(Restaurant restaurant) {
 		try {
 			Connection cnx = DriverManager.getConnection("jdbc:sqlserver://Ouessant-10;databasename=DEMO_YOLO;username=Utilisateur1;password=Utilisateur1;trustservercertificate=true");
 			if(!cnx.isClosed()) {
@@ -90,8 +90,8 @@ public class RestaurantsDAO {
 		}
 	}
 
- 	private Restaurants convertResultSetToRestaurant(ResultSet rs) throws SQLException {
-		Restaurants restaurant = new Restaurants();
+ 	private Restaurant convertResultSetToRestaurant(ResultSet rs) throws SQLException {
+		Restaurant restaurant = new Restaurant();
 		restaurant.setId(rs.getInt("id"));
 		restaurant.setNom(rs.getString("nom"));
 		restaurant.setUrl_image(rs.getString("url_image"));
