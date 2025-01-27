@@ -3,13 +3,13 @@ package bll;
 import java.util.List;
 
 import bo.Restaurants;
-import dal.RestaurantsDAO;
-import exceptions.RestaurantsException;
+import dal.RestaurantDAO;
+import exceptions.RestaurantException;
 
-public class RestaurantsBLL {
+public class RestaurantBLL {
 
 	public List<Restaurants> select() {
-		RestaurantsDAO dao = new RestaurantsDAO();
+		RestaurantDAO dao = new RestaurantDAO();
 		return dao.select();
 	}
 	
@@ -23,33 +23,33 @@ public class RestaurantsBLL {
 		Restaurants restaurant = new Restaurants(nom, url_image, id_cartes);
 		checkRestaurants(restaurant);
 		
-		RestaurantsDAO dao = new RestaurantsDAO();
+		RestaurantDAO dao = new RestaurantDAO();
 		dao.insert(restaurant);
 		
 		return restaurant;
 	}
 	
-	private void checkRestaurants(Restaurants restaurant) throws RestaurantsException {
+	private void checkRestaurants(Restaurants restaurant) throws RestaurantException {
 		if (restaurant.getNom() == null || restaurant.getNom().length() < 2 || restaurant.getNom().length() > 20) {
-			throw new RestaurantsException("Le nom doit faire entre 2 et 20 caractères.");
+			throw new RestaurantException("Le nom doit faire entre 2 et 20 caractères.");
 		}
 		if (restaurant.getUrl_image() == null || restaurant.getUrl_image().length() < 10) {
-			throw new RestaurantsException("L'url de l'image doit faire au moins 10 caractères.");
+			throw new RestaurantException("L'url de l'image doit faire au moins 10 caractères.");
 		}
 		if (restaurant.getId_cartes() == 0 || restaurant.getId_cartes() < 1 || restaurant.getId_cartes() > 3) {
-			throw new RestaurantsException("la carte associée au restaurant n'existe pas.");
+			throw new RestaurantException("la carte associée au restaurant n'existe pas.");
 		}
 	}
 	
-	public void update(Restaurants restaurant) throws RestaurantsException {
+	public void update(Restaurants restaurant) throws RestaurantException {
 		checkRestaurants(restaurant);
 		
-		RestaurantsDAO dao = new RestaurantsDAO();
+		RestaurantDAO dao = new RestaurantDAO();
 		dao.update(restaurant);
 	}
 	
 	public void delete (int id) {
-		RestaurantsDAO dao = new RestaurantsDAO();
+		RestaurantDAO dao = new RestaurantDAO();
 		dao.delete(id);
 	}
 	

@@ -1,9 +1,9 @@
 package exceptions;
 
-public class CartesException extends Exception {
+public class CarteException extends Exception {
 	private static final long serialVersionUID = 1L;
 
-	public CartesException(String message) {
+	public CarteException(String message) {
 		super(message);
 	}
 }
