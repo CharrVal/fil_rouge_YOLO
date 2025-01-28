@@ -1,10 +1,13 @@
 package bo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Carte {
 	private int id;
 	private String nom;
 	private String description;
-	//private List<Plats> liste_plats = new ArrayList<>();
+	private List<Plat> plats = new ArrayList<>();
 	
 	public Carte(int id, String nom, String description) {
 		this.id = id;
@@ -42,9 +45,23 @@ public class Carte {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+
+	public List<Plat> getPlats() {
+		return plats;
+	}
+
+	public void setPlats(List<Plat> plats) {
+		this.plats = plats;
+	}
+	
 
 	@Override
 	public String toString() {
-		return "Cartes d'id n°" + id + " de nom : " + nom + " et de description : " + description;
+		return "Carte id : " + id + ", nom : " + nom + ", description : " + description + ", plats : " + plats;
 	}
+
+
+	
+	
 }
