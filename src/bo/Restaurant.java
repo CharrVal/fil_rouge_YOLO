@@ -8,24 +8,25 @@ public class Restaurant {
 	private String nom;
 	private String adresse;
 	private String url_image;
-	private List<Carte> cartes = new ArrayList<>();
+	private Carte carte;
 	private List<Horaire> horaires = new ArrayList<>();
 	private List<TableRestaurant> tablesRestaurants = new ArrayList<>();
 	
 			
-	public Restaurant(int id, String nom, String adresse, String url_image) {
+	public Restaurant(int id, String nom, String adresse, String url_image, Carte carte) {
 		this.id = id;
 		this.nom = nom;
 		this.adresse = adresse;
 		this.url_image = url_image;
-
+		this.carte = carte;
 	}
 	
 	
-	public Restaurant(String nom, String adresse, String url_image) {
+	public Restaurant(String nom, String adresse, String url_image, Carte carte) {
 		this.nom = nom;
 		this.adresse = adresse;
 		this.url_image = url_image;
+		this.carte = carte;
 	}
 
 	public Restaurant() {}
@@ -61,14 +62,13 @@ public class Restaurant {
 		this.adresse = adresse;
 	}
 
-
-	public List<Carte> getCartes() {
-		return cartes;
+	public Carte getCarte() {
+		return carte;
 	}
 
 
-	public void setCartes(List<Carte> cartes) {
-		this.cartes = cartes;
+	public void setCarte(Carte carte) {
+		this.carte = carte;
 	}
 
 
@@ -106,14 +106,8 @@ public class Restaurant {
 	@Override
 	public String toString() {
 		
-		return String.format("   \n%-4d %-30s %-30s %-20s %-50s %-20s %-30s\n", id, nom, adresse, cartes, horaires, tablesRestaurants, url_image);
+		return String.format("   \n%-4d %-30s %-30s %-20s %-50s %-20s %-30s\n", id, nom, adresse, carte, horaires, tablesRestaurants, url_image);
 		
 	}
 	
-	
-	
-	
-	
-	
-
 }

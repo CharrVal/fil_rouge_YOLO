@@ -6,8 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import bo.Carte;
 import bo.Restaurant;
 
 public class RestaurantDAO {
@@ -108,7 +111,33 @@ public class RestaurantDAO {
 		restaurant.setNom(rs.getString("nom"));
 		restaurant.setAdresse(rs.getString("adresse"));
 		restaurant.setUrl_image(rs.getString("url_image"));
-		return restaurant;
-	}
-	
+	       
+     // Fetch carte
+        int carteId = rs.getInt("id_cartes");
+        if (!rs.wasNull()) {
+            Carte carte = fetchCarteById(carteId);
+            restaurant.setCarte(carte);
+		
+        }
+
+        return restaurant;
+    }
+ 	
+        private Carte fetchCarteById(int carteId) throws SQLException {
+            Carte carte = null;
+            String query = "SELECT * FROM cartes WHERE id = ?";
+            Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");	
+            
+            try (PreparedStatement ps = cnx.prepareStatement(query)) {
+                ps.setInt(1, carteId);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    carte = new Carte();
+                    carte.setId(rs.getInt("id"));
+                    carte.setNom(rs.getString("nom"));
+                    carte.setDescription(rs.getString("description"));
+                }
+            }
+            return carte;
+        }
 }

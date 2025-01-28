@@ -40,13 +40,24 @@ public class TestAffichage {
 	}
 	
 	private static void afficherRestaurant(List<Restaurant> Restaurants) {
-		int totalLength = 4 + 30 + 30 + 20 + 50 + 20 + 50;
+		int totalLength = 4 + 30 + 30 + 50 + 50 + 20 + 50 + 7;
 	    System.out.println("+" + "-".repeat(totalLength) + "+");
-	    System.out.format("%-4s %-30s %-30s %-20s %-50s %-20s %-50s\n",
-	                      "id", "nom", "adresse", "cartes", "horaires", "tables", "url_image");
+	    System.out.format("| %-4s | %-30s | %-30s | %-30s | %-50s | %-20s | %-50s |\n",
+	                      "id", "nom", "adresse", "carte", "horaires", "tables", "url_image");
 	    System.out.println("+" + "-".repeat(totalLength) + "+");
 		for (Restaurant current : Restaurants) {
-			System.out.print(current);
+			//System.out.print(current);
+			String carte = (current.getCarte() != null) ? current.getCarte().getNom() : "N/A";
+	        String horaires = "N/A"; // Assuming you have a method to get horaires as a string
+	        String tables = "N/A"; // Assuming you have a method to get tables as a string
+	        System.out.format("| %-4d | %-30s | %-30s | %-30s | %-50s | %-20s | %-50s |\n",
+	                          current.getId(),
+	                          current.getNom(),
+	                          current.getAdresse(),
+	                          carte,
+	                          horaires,
+	                          tables,
+	                          current.getUrl_image());
 		}
 		 System.out.println("+" + "-".repeat(totalLength) + "+");
 	}
@@ -64,7 +75,7 @@ public class TestAffichage {
 			String url_image = scan.nextLine();
 			
 			try {
-				RestaurantBLL.insert(nom, adresse, url_image);
+				RestaurantBLL.insert(nom, adresse, url_image, null);
 				insertionFailed = false;
 			} catch (RestaurantException e) {
 				insertionFailed = true;
@@ -119,7 +130,7 @@ public class TestAffichage {
 			System.out.print("Veuillez saisir la nouvelle url de l'image du restaurant : ");
 			String url_image = scan.nextLine();
 			
-			Restaurant restoTemp = new Restaurant(choix, nom, adresse, url_image);
+			Restaurant restoTemp = new Restaurant(choix, nom, adresse, url_image, null);
 			
 			try {
 				RestaurantBLL.update(restoTemp);
