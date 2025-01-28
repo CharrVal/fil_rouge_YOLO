@@ -2,6 +2,7 @@ package bll;
 
 import java.util.List;
 
+import bo.Horaire;
 import bo.Restaurant;
 import dal.RestaurantDAO;
 import exceptions.RestaurantException;
@@ -21,8 +22,8 @@ public class RestaurantBLL {
 	 * url_image fait plus de 10 caractères,
 	 * id_cartes supérieur ou égale à 1 inférieur ou égal à 3.
 	 */
-	public Restaurant insert(String nom, String adresse, String url_image) throws Exception {
-		Restaurant restaurant = new Restaurant(nom, adresse, url_image);
+	public Restaurant insert(String nom, String adresse, String url_image, List<Horaire> horaires) throws Exception {
+		Restaurant restaurant = new Restaurant(nom, adresse, url_image, horaires);
 		checkRestaurants(restaurant);
 		
 		RestaurantDAO dao = new RestaurantDAO();

@@ -6,9 +6,9 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/T490/Desktop/JDBC librairies SQL/jakarta.xml.bind-api-2.3.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/T490/Desktop/JDBC librairies SQL/jaxb-api-2.3.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/T490/Desktop/JDBC librairies SQL/jaxb-runtime-2.3.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/T490/Desktop/JDBC librairies SQL/sqljdbc42.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Administrateur/Desktop/librairies/jakarta.xml.bind-api-2.3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Administrateur/Desktop/librairies/jaxb-api-2.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Administrateur/Desktop/librairies/jaxb-runtime-2.3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Administrateur/Desktop/librairies/sqljdbc42.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
