@@ -21,8 +21,8 @@ public class RestaurantBLL {
 	 * url_image fait plus de 10 caractères,
 	 * id_cartes supérieur ou égale à 1 inférieur ou égal à 3.
 	 */
-	public Restaurant insert(String nom, String url_image) throws Exception {
-		Restaurant restaurant = new Restaurant(nom, url_image);
+	public Restaurant insert(String nom, String adresse, String url_image) throws Exception {
+		Restaurant restaurant = new Restaurant(nom, adresse, url_image);
 		checkRestaurants(restaurant);
 		
 		RestaurantDAO dao = new RestaurantDAO();
@@ -37,9 +37,6 @@ public class RestaurantBLL {
 		}
 		if (restaurant.getUrl_image() == null || restaurant.getUrl_image().length() < 10) {
 			throw new RestaurantException("L'url de l'image doit faire au moins 10 caractères.");
-		}
-		if (restaurant.getId_cartes() == 0 || restaurant.getId_cartes() < 1 || restaurant.getId_cartes() > 3) {
-			throw new RestaurantException("la carte associée au restaurant n'existe pas.");
 		}
 	}
 	

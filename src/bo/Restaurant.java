@@ -7,10 +7,10 @@ public class Restaurant {
 	private int id;
 	private String nom;
 	private String adresse;
+	private String url_image;
 	private List<Carte> cartes = new ArrayList<>();
 	private List<Horaire> horaires = new ArrayList<>();
 	private List<TableRestaurant> tablesRestaurants = new ArrayList<>();
-	private String url_image;
 	
 			
 	public Restaurant(int id, String nom, String adresse, String url_image) {
@@ -102,12 +102,18 @@ public class Restaurant {
 	}
 
 
+	
 	@Override
 	public String toString() {
-		return "Restaurant id : " + id + ", nom : " + nom + ", adresse : " + adresse + ", cartes : " + cartes
-				+ ", horaires : " + horaires + ", tablesRestaurants : " + tablesRestaurants + ", url_image : "
-				+ url_image;
+		
+		return String.format("   \n%-4d %-30s %-30s %-20s %-50s %-20s %-30s\n", id, nom, adresse, cartes, horaires, tablesRestaurants, url_image);
+		
 	}
-
+	
+	
+	
+	
+	
+	
 
 }

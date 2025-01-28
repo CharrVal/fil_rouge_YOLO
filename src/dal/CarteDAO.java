@@ -17,7 +17,7 @@ public class CarteDAO {
 	String password = System.getenv("FIL_ROUGE_PASSWORD");
 
 	public List<Carte> select() {
-		List<Carte> carte = new ArrayList<>();
+		List<Carte> cartes = new ArrayList<>();
 		
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
@@ -26,14 +26,14 @@ public class CarteDAO {
 				ResultSet rs = ps.executeQuery();
 				
 				while (rs.next()) {
-					carte.add(convertResultSetToCartes(rs));
+					cartes.add(convertResultSetToCartes(rs));
 				}
 			}
 			cnx.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return carte;
+		return cartes;
 	}
 
 	public Carte insert(Carte carte) {
