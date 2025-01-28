@@ -36,9 +36,6 @@ public class RestaurantBLL {
 		if (restaurant.getUrl_image() == null || restaurant.getUrl_image().length() < 10) {
 			throw new RestaurantException("L'url de l'image doit faire au moins 10 caractères.");
 		}
-		if (restaurant.getId_cartes() == 0 || restaurant.getId_cartes() < 1 || restaurant.getId_cartes() > 3) {
-			throw new RestaurantException("la carte associée au restaurant n'existe pas.");
-		}
 	}
 	
 	public void update(Restaurant restaurant) throws RestaurantException {

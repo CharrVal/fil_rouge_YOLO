@@ -8,65 +8,66 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import bo.Carte;
+import bo.Horaire;
 
-public class CarteDAO {
+public class HoraireDAO {
 	String url = System.getenv("FIL_ROUGE_URL");
 	String username = System.getenv("FIL_ROUGE_USERNAME");
 	String password = System.getenv("FIL_ROUGE_PASSWORD");
 	
-	public List<Carte> select() {
-		List<Carte> carte = new ArrayList<>();
+	public List<Horaire> select() {
+		List<Horaire> liste_horaire = new ArrayList<>();
 
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
-				PreparedStatement ps = cnx.prepareStatement("SELECT * FROM cartes");
+				PreparedStatement ps = cnx.prepareStatement("SELECT * FROM horaires");
 				ResultSet rs = ps.executeQuery();
 				
 				while (rs.next()) {
-					carte.add(convertResultSetToCartes(rs));
+					liste_horaire.add(convertResultSetToHoraires(rs));
 				}
 			}
 			cnx.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return carte;
+		return liste_horaire;
 	}
 
-	public Carte insert(Carte carte) {	
+	public Horaire insert(Horaire horaire) {	
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement(
-						"INSERT INTO cartes(nom, description)"
-						+ "VALUES (?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-				ps.setString(1, carte.getNom());
-				ps.setString(2, carte.getDescription());
+						"INSERT INTO horaires(jour, ouverture, fermeture)"
+						+ "VALUES (?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+				ps.setString(1, horaire.getJour());
+				ps.setDate(2, horaire.getOuverture());
+				ps.setDate(3, horaire.getFermeture());
 			
 				ps.executeUpdate();
 				ResultSet rs = ps.getGeneratedKeys();
 				if (rs.next()) {
-					carte.setId(rs.getInt(1));
+					horaire.setId(rs.getInt(1));
 				}
 			}
 			cnx.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return carte;
+		return horaire;
 	}
 
-	public void update(Carte carte) {
+	public void update(Horaire horaire) {
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement(
-						"UPDATE cartes SET nom = ?, description = ? WHERE id = ?");
-				ps.setString(1, carte.getNom());
-				ps.setString(2, carte.getDescription());
-				ps.setInt(3, carte.getId());
+						"UPDATE horaires SET jour = ?, ouverture = ?, fermeture = ? WHERE id = ?");
+				ps.setString(1, horaire.getJour());
+				ps.setDate(2, horaire.getOuverture());
+				ps.setDate(3, (horaire.getFermeture());
 				
 				ps.executeUpdate();
 			}
@@ -80,7 +81,7 @@ public class CarteDAO {
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
-				PreparedStatement ps = cnx.prepareStatement("DELETE FROM cartes WHERE id = ?");
+				PreparedStatement ps = cnx.prepareStatement("DELETE FROM horaires WHERE id = ?");
 				ps.setInt(1, id);
 				ps.executeUpdate();
 			}
@@ -90,11 +91,12 @@ public class CarteDAO {
 		}
 	}
 	
- 	private Carte convertResultSetToCartes(ResultSet rs) throws SQLException {
-		Carte carte = new Carte();
-		carte.setId(rs.getInt("id"));
-		carte.setNom(rs.getString("nom"));
-		carte.setDescription(rs.getString("description"));
-		return carte;
+ 	private Horaire convertResultSetToHoraires(ResultSet rs) throws SQLException {
+		Horaire horaire = new Horaire();
+		horaire.setId_horaire(rs.getInt("id"));
+		horaire.setJour(rs.getString("jour"));
+		horaire.setOuverture(rs.getDate("ouverture").toLocalDate());
+		horaire.setFermeture(rs.getDate("fermeture").toLocalDate());
+		return horaire;
 	} 	
 }

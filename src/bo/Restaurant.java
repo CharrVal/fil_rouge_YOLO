@@ -1,10 +1,15 @@
 package bo;
 
+// import java.util.ArrayList;
+// import java.util.List;
+
 public class Restaurant {
 	private int id;
 	private String nom;
 	private String url_image;
-	private int id_cartes;
+	// private List<Carte> liste_cartes = new ArrayList<>();
+	// private List<Horaire> liste_horaires = new ArrayList<>();
+	// private List<Table_Restaurant> liste_tables = new ArrayList<>();
 	
 	public Restaurant(int id, String nom, String url_image) {
 		this.id = id;
@@ -43,16 +48,8 @@ public class Restaurant {
 		this.url_image = url_image;
 	}
 
-	public int getId_cartes() {
-		return id_cartes;
-	}
-
-	public void setId_cartes(int id_cartes) {
-		this.id_cartes = id_cartes;
-	}
-
 	@Override
 	public String toString() {
-		return String.format("%-2d | %-15s| %-15s| %-2d|\n", id, nom, url_image, id_cartes);
+		return String.format("%-2d | %-15s| %-15s| %-2d|\n", id, nom, url_image);
 	}	
 }

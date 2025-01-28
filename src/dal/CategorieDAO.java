@@ -8,65 +8,64 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import bo.Carte;
+import bo.Categorie;
 
-public class CarteDAO {
+public class CategorieDAO {
 	String url = System.getenv("FIL_ROUGE_URL");
 	String username = System.getenv("FIL_ROUGE_USERNAME");
 	String password = System.getenv("FIL_ROUGE_PASSWORD");
 	
-	public List<Carte> select() {
-		List<Carte> carte = new ArrayList<>();
+	public List<Categorie> select() {
+		List<Categorie> liste_categorie = new ArrayList<>();
 
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
-				PreparedStatement ps = cnx.prepareStatement("SELECT * FROM cartes");
+				PreparedStatement ps = cnx.prepareStatement("SELECT * FROM categories");
 				ResultSet rs = ps.executeQuery();
 				
 				while (rs.next()) {
-					carte.add(convertResultSetToCartes(rs));
+					liste_categorie.add(convertResultSetToCategorie(rs));
 				}
 			}
 			cnx.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return carte;
+		return liste_categorie;
 	}
 
-	public Carte insert(Carte carte) {	
+	public Categorie insert(Categorie categorie) {	
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement(
-						"INSERT INTO cartes(nom, description)"
-						+ "VALUES (?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-				ps.setString(1, carte.getNom());
-				ps.setString(2, carte.getDescription());
+						"INSERT INTO categories(libelle)"
+						+ "VALUES (?)", PreparedStatement.RETURN_GENERATED_KEYS);
+				ps.setString(1, categorie.getLibelle());
+
 			
 				ps.executeUpdate();
 				ResultSet rs = ps.getGeneratedKeys();
 				if (rs.next()) {
-					carte.setId(rs.getInt(1));
+					categorie.setId(rs.getInt(1));
 				}
 			}
 			cnx.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return carte;
+		return categorie;
 	}
 
-	public void update(Carte carte) {
+	public void update(Categorie categorie) {
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement(
-						"UPDATE cartes SET nom = ?, description = ? WHERE id = ?");
-				ps.setString(1, carte.getNom());
-				ps.setString(2, carte.getDescription());
-				ps.setInt(3, carte.getId());
+						"UPDATE categorie SET categorie = ? WHERE id = ?");
+				ps.setString(1, categorie.getLibelle());
+				ps.setInt(2, categorie.getId());
 				
 				ps.executeUpdate();
 			}
@@ -80,7 +79,7 @@ public class CarteDAO {
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
-				PreparedStatement ps = cnx.prepareStatement("DELETE FROM cartes WHERE id = ?");
+				PreparedStatement ps = cnx.prepareStatement("DELETE FROM categories WHERE id = ?");
 				ps.setInt(1, id);
 				ps.executeUpdate();
 			}
@@ -90,11 +89,10 @@ public class CarteDAO {
 		}
 	}
 	
- 	private Carte convertResultSetToCartes(ResultSet rs) throws SQLException {
-		Carte carte = new Carte();
-		carte.setId(rs.getInt("id"));
-		carte.setNom(rs.getString("nom"));
-		carte.setDescription(rs.getString("description"));
-		return carte;
+ 	private Categorie convertResultSetToCategorie(ResultSet rs) throws SQLException {
+		Categorie categorie = new Categorie();
+		categorie.setId(rs.getInt("id"));
+		categorie.setLibelle(rs.getString("categorie"));
+		return categorie;
 	} 	
 }
