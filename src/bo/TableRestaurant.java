@@ -3,17 +3,17 @@ package bo;
 public class TableRestaurant {
 	
 	private int id;
-	private int nbTables;
+	private int nbPlaces;
 	private int numeroTable;
 	
-	public TableRestaurant(int id, int nbTables, int numeroTable) {
+	public TableRestaurant(int id, int nbPlaces, int numeroTable) {
 		this.id = id;
-		this.nbTables = nbTables;
+		this.nbPlaces = nbPlaces;
 		this.numeroTable = numeroTable;
 	}
 
-	public TableRestaurant(int nbTables, int numeroTable) {
-		this.nbTables = nbTables;
+	public TableRestaurant(int nbPlaces, int numeroTable) {
+		this.nbPlaces = nbPlaces;
 		this.numeroTable = numeroTable;
 	}
 
@@ -28,12 +28,12 @@ public class TableRestaurant {
 		this.id = id;
 	}
 
-	public int getNbTables() {
-		return nbTables;
+	public int getNbPlaces() {
+		return nbPlaces;
 	}
 
-	public void setNbTables(int nbTables) {
-		this.nbTables = nbTables;
+	public void setNbPlaces(int nbPlaces) {
+		this.nbPlaces = nbPlaces;
 	}
 
 	public int getNumeroTable() {
@@ -46,7 +46,7 @@ public class TableRestaurant {
 
 	@Override
 	public String toString() {
-		return "TableRestaurant id : " + id + ", nbTables : " + nbTables + ", numeroTable : " + numeroTable;
+		return "TableRestaurant id : " + id + ", nbPlaces : " + nbPlaces + ", numeroTable : " + numeroTable;
 	}
 	
 	

@@ -3,11 +3,11 @@ package bll;
 import java.util.List;
 
 import bo.Restaurant;
+import bo.TableRestaurant;
 import dal.RestaurantDAO;
 import exceptions.RestaurantException;
 
 public class RestaurantBLL {
-	
 	
 
 	public List<Restaurant> select() {
@@ -21,8 +21,8 @@ public class RestaurantBLL {
 	 * url_image fait plus de 10 caractères,
 	 * id_cartes supérieur ou égale à 1 inférieur ou égal à 3.
 	 */
-	public Restaurant insert(String nom, String adresse, String url_image) throws Exception {
-		Restaurant restaurant = new Restaurant(nom, adresse, url_image);
+	public Restaurant insert(String nom, String adresse, String url_image, List<TableRestaurant> tables) throws Exception {
+		Restaurant restaurant = new Restaurant(nom, adresse, url_image, tables);
 		checkRestaurants(restaurant);
 		
 		RestaurantDAO dao = new RestaurantDAO();

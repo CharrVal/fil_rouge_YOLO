@@ -148,15 +148,17 @@ public class TestAffichage {
 	}
 
 	private static void afficherRestaurant(List<Restaurant> Restaurants) {
-		System.out.println();
-		System.out.println("+" + "-".repeat(200) + "+");
-		System.out.format("%-4s %-30s %-30s %-20s %-50s %-20s %-50s", "id", "nom", "adresse", "cartes", "horaires", "tables", "url_image\n");
-		for (Restaurant current : Restaurants) {
-			System.out.print(current);
-		}
-		System.out.println();
-		System.out.println("+" + "-".repeat(200) + "+");
-		System.out.println();
+	    int totalLength = 4 + 30 + 30 + 20 + 50 + 20 + 50;
+	    System.out.println("+" + "-".repeat(totalLength) + "+");
+	    System.out.format("%-4s %-30s %-30s %-20s %-50s %-20s %-50s\n",
+	                      "id", "nom", "adresse", "cartes", "horaires", "tables", "url_image");
+	    System.out.println("+" + "-".repeat(totalLength) + "+");
+	    
+	    for (Restaurant current : Restaurants) {
+	        System.out.print(current);
+	    }
+	    
+	    System.out.println("+" + "-".repeat(totalLength) + "+");
 	}
 	
 	

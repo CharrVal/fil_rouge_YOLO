@@ -13,19 +13,20 @@ public class Restaurant {
 	private List<TableRestaurant> tablesRestaurants = new ArrayList<>();
 	
 			
-	public Restaurant(int id, String nom, String adresse, String url_image) {
+	public Restaurant(int id, String nom, String adresse, String url_image, List<TableRestaurant> tablesRestaurants) {
 		this.id = id;
 		this.nom = nom;
 		this.adresse = adresse;
 		this.url_image = url_image;
-
+		this.tablesRestaurants = tablesRestaurants;
 	}
 	
 	
-	public Restaurant(String nom, String adresse, String url_image) {
+	public Restaurant(String nom, String adresse, String url_image, List<TableRestaurant> tablesRestaurants) {
 		this.nom = nom;
 		this.adresse = adresse;
 		this.url_image = url_image;
+		this.tablesRestaurants = tablesRestaurants;
 	}
 
 	public Restaurant() {}

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bo.Restaurant;
+import bo.TableRestaurant;
 
 public class RestaurantDAO {
 	
@@ -22,11 +23,14 @@ public class RestaurantDAO {
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
 			if(!cnx.isClosed()) {
-				PreparedStatement ps = cnx.prepareStatement("SELECT * FROM restaurants");
-				ResultSet rs = ps.executeQuery();
+				PreparedStatement psRestos = cnx.prepareStatement("SELECT * FROM restaurants");
+				ResultSet rsRestos = psRestos.executeQuery();
 				
-				while (rs.next()) {
-					restaurants.add(convertResultSetToRestaurant(rs));
+				PreparedStatement psTables = cnx.prepareStatement("SELECT * FROM tables_restaurant");
+				ResultSet rsTables = psTables.executeQuery();
+				
+				while (rsRestos.next()) {
+					restaurants.add(convertResultSetToRestaurant(rsRestos, rsTables));
 				}
 			}
 			cnx.close();
@@ -40,18 +44,32 @@ public class RestaurantDAO {
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
 			if(!cnx.isClosed()) {
-				PreparedStatement ps = cnx.prepareStatement(
+				PreparedStatement psRestos = cnx.prepareStatement(
 						"INSERT INTO restaurants(nom, adresse, url_image)"
 						+ "VALUES (?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-				ps.setString(1, restaurant.getNom());
-				ps.setString(2, restaurant.getAdresse());
-				ps.setString(3, restaurant.getUrl_image());
+				psRestos.setString(1, restaurant.getNom());
+				psRestos.setString(2, restaurant.getAdresse());
+				psRestos.setString(3, restaurant.getUrl_image());
 				
-				ps.executeUpdate(); 
-				ResultSet rs = ps.getGeneratedKeys();
-				if (rs.next()) {
-					restaurant.setId(rs.getInt(1));
+				psRestos.executeUpdate(); 
+				ResultSet rsRestos = psRestos.getGeneratedKeys();
+				if (rsRestos.next()) {
+					restaurant.setId(rsRestos.getInt(1));
 				}
+				
+				for(TableRestaurant tableCurrent : restaurant.getTablesRestaurants()){
+					PreparedStatement psTables = cnx.prepareStatement(
+							"INSERT INTO tables_restaurant(nb_places, numero_table, id_restaurants)"
+							+ "VALUES (?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+					psTables.setInt(1, tableCurrent.getNbPlaces());
+					psTables.setInt(2, tableCurrent.getNumeroTable());
+					psTables.setInt(3, restaurant.getId());
+					
+					psTables.executeUpdate(); 
+				}
+				
+				
+				
 			}
 			cnx.close();
 		} catch (SQLException e) {
@@ -64,14 +82,14 @@ public class RestaurantDAO {
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
 			if(!cnx.isClosed()) {
-				PreparedStatement ps = cnx.prepareStatement(
+				PreparedStatement psRestos = cnx.prepareStatement(
 						"UPDATE restaurants SET nom = ?, adresse = ?, url_image = ? WHERE id = ?");
-				ps.setString(1, restaurant.getNom());
-				ps.setString(2, restaurant.getAdresse());
-				ps.setString(3, restaurant.getUrl_image());
-				ps.setInt(4, restaurant.getId());
+				psRestos.setString(1, restaurant.getNom());
+				psRestos.setString(2, restaurant.getAdresse());
+				psRestos.setString(3, restaurant.getUrl_image());
+				psRestos.setInt(4, restaurant.getId());
 				
-				ps.executeUpdate();
+				psRestos.executeUpdate();
 			}
 			cnx.close();
 		} catch (SQLException e) {
@@ -83,9 +101,9 @@ public class RestaurantDAO {
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
 			if(!cnx.isClosed()) {
-				PreparedStatement ps = cnx.prepareStatement("DELETE FROM restaurants WHERE id = ?");
-				ps.setInt(1, id);
-				ps.executeUpdate();
+				PreparedStatement psRestos = cnx.prepareStatement("DELETE FROM restaurants WHERE id = ?");
+				psRestos.setInt(1, id);
+				psRestos.executeUpdate();
 			}
 			cnx.close();
 		} catch (SQLException e) {
@@ -93,12 +111,13 @@ public class RestaurantDAO {
 		}
 	}
 
- 	private Restaurant convertResultSetToRestaurant(ResultSet rs) throws SQLException {
+ 	private Restaurant convertResultSetToRestaurant(ResultSet rsRestos, ResultSet rsTables) throws SQLException {
 		Restaurant restaurant = new Restaurant();
-		restaurant.setId(rs.getInt("id"));
-		restaurant.setNom(rs.getString("nom"));
-		restaurant.setAdresse(rs.getString("adresse"));
-		restaurant.setUrl_image(rs.getString("url_image"));
+		restaurant.setId(rsRestos.getInt("id"));
+		restaurant.setNom(rsRestos.getString("nom"));
+		restaurant.setAdresse(rsRestos.getString("adresse"));
+		restaurant.setUrl_image(rsRestos.getString("url_image"));
+		// attribuer la bonne table au bon resto
 		return restaurant;
 	}
 	
