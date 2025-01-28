@@ -7,15 +7,12 @@ import dal.RestaurantDAO;
 import exceptions.RestaurantException;
 
 public class RestaurantBLL {
-	
-	
-
 	public List<Restaurant> select() {
 		RestaurantDAO dao = new RestaurantDAO();
 		return dao.select();
 	}
 
-	public Restaurant insert(String nom, String adresse, String url_image) throws Exception {
+	public Restaurant insert(String nom, String adresse, String url_image) throws RestaurantException {
 		Restaurant restaurant = new Restaurant(nom, adresse, url_image);
 		checkRestaurants(restaurant);
 		

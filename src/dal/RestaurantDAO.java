@@ -18,7 +18,6 @@ public class RestaurantDAO {
 	
 	public List<Restaurant> select() {
 		List<Restaurant> restaurants = new ArrayList<>();
-			
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
@@ -37,7 +36,6 @@ public class RestaurantDAO {
 	}
 
 	public Restaurant insert(Restaurant restaurant) {
-
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
@@ -102,5 +100,4 @@ public class RestaurantDAO {
 		restaurant.setUrl_image(rs.getString("url_image"));
 		return restaurant;
 	}
-	
 }

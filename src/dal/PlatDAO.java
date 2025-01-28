@@ -21,7 +21,7 @@ public class PlatDAO {
 			try {
 				Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 				if(!cnx.isClosed()) {
-					PreparedStatement ps = cnx.prepareStatement("SELECT * FROM cartes");
+					PreparedStatement ps = cnx.prepareStatement("SELECT * FROM plats");
 					ResultSet rs = ps.executeQuery();
 					
 					while (rs.next()) {
@@ -96,6 +96,7 @@ public class PlatDAO {
 			Plat plat = new Plat();
 			plat.setId(rs.getInt("id"));
 			plat.setNom(rs.getString("nom"));
+			plat.setPrix(rs.getDouble("prix"));
 			plat.setDescription(rs.getString("description"));
 			return plat;
 		} 	

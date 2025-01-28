@@ -83,6 +83,6 @@ public class Restaurant {
 
 	@Override
 	public String toString() {
-		return String.format("%-2d | %-15s| %-15s| %-2d|\n", id, nom, url_image);
+		return String.format("%-4d %-30s %-30s %-20s %-50s %-20s %-50s\n", id, nom, adresse, cartes, horaires, tables, url_image);
 	}	
 }

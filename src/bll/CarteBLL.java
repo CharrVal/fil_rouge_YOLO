@@ -12,7 +12,7 @@ public class CarteBLL {
 		return dao.select();
 	}
 
-	public Carte insert(String nom, String description) throws Exception {
+	public Carte insert(String nom, String description) throws CarteException {
 		Carte carte = new Carte(nom, description);
 		checkCarte(carte);
 		

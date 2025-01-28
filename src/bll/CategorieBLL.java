@@ -12,7 +12,7 @@ public class CategorieBLL {
 		return dao.select();
 	}
 
-	public Categorie insert(String libelle) throws Exception {
+	public Categorie insert(String libelle) throws CategorieException {
 		Categorie categorie = new Categorie(libelle);
 		checkCategorie(categorie);
 		

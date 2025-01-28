@@ -64,8 +64,7 @@ public class Plat {
 
 	@Override
 	public String toString() {
-		return "Plat n°" + id + " :" + "\nNom du plat :" + nom + ", de prix : " + prix + " €" + ", de description :" + description + ", et de categorie :"
-				+ categorie;
+		return String.format("%-4s %-10s %-5s %-20s %-15s\n", id, nom, prix, description, categorie);
 	}
 }
 

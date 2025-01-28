@@ -1,6 +1,7 @@
 package dal;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,8 +44,8 @@ public class HoraireDAO {
 						"INSERT INTO horaires(jour, ouverture, fermeture)"
 						+ "VALUES (?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
 				ps.setString(1, horaire.getJour());
-				ps.setDate(2, horaire.getOuverture());
-				ps.setDate(3, horaire.getFermeture());
+				ps.setDate(2, Date.valueOf(horaire.getOuverture()));
+				ps.setDate(3, Date.valueOf(horaire.getFermeture()));
 			
 				ps.executeUpdate();
 				ResultSet rs = ps.getGeneratedKeys();
@@ -66,8 +67,8 @@ public class HoraireDAO {
 				PreparedStatement ps = cnx.prepareStatement(
 						"UPDATE horaires SET jour = ?, ouverture = ?, fermeture = ? WHERE id = ?");
 				ps.setString(1, horaire.getJour());
-				ps.setDate(2, horaire.getOuverture());
-				ps.setDate(3, (horaire.getFermeture());
+				ps.setDate(2, Date.valueOf(horaire.getOuverture()));
+				ps.setDate(3, Date.valueOf(horaire.getFermeture()));
 				
 				ps.executeUpdate();
 			}
@@ -93,7 +94,7 @@ public class HoraireDAO {
 	
  	private Horaire convertResultSetToHoraires(ResultSet rs) throws SQLException {
 		Horaire horaire = new Horaire();
-		horaire.setId_horaire(rs.getInt("id"));
+		horaire.setId(rs.getInt("id"));
 		horaire.setJour(rs.getString("jour"));
 		horaire.setOuverture(rs.getDate("ouverture").toLocalDate());
 		horaire.setFermeture(rs.getDate("fermeture").toLocalDate());

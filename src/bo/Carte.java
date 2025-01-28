@@ -56,6 +56,6 @@ public class Carte {
 
 	@Override
 	public String toString() {
-		return "Cartes d'id n°" + id + " de nom : " + nom + " et de description : " + description + "plats associés :" + plats;
+		return String.format("%-4d %-10s %-25s %-30s\n", id, nom, description, plats);
 	}
 }
