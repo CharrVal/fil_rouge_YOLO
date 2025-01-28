@@ -7,20 +7,16 @@ import dal.RestaurantDAO;
 import exceptions.RestaurantException;
 
 public class RestaurantBLL {
+	
+	
 
 	public List<Restaurant> select() {
 		RestaurantDAO dao = new RestaurantDAO();
 		return dao.select();
 	}
-	
-	/*
-	 * Pour avoir le droit de réaliser l'insertion, un restaurant doit respecter les contraintes suivantes :
-	 * nom compris entre 2 et 20 caractères,
-	 * url_image fait plus de 10 caractères,
-	 * id_cartes supérieur ou égale à 1 inférieur ou égal à 3.
-	 */
-	public Restaurant insert(String nom, String url_image) throws Exception {
-		Restaurant restaurant = new Restaurant(nom, url_image);
+
+	public Restaurant insert(String nom, String adresse, String url_image) throws Exception {
+		Restaurant restaurant = new Restaurant(nom, adresse, url_image);
 		checkRestaurants(restaurant);
 		
 		RestaurantDAO dao = new RestaurantDAO();

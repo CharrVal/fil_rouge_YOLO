@@ -1,22 +1,22 @@
 package bo;
 
-public class Table_restaurant {
+public class TableRestaurant {
 	private int id;
 	private int nbPlaces;
 	private int numeroTable;
 	
-	public Table_restaurant(int id, int nbPlaces, int numeroTable) {
+	public TableRestaurant(int id, int nbPlaces, int numeroTable) {
 		this.id = id;
 		this.nbPlaces = nbPlaces;
 		this.numeroTable = numeroTable;
 	}
 	
-	public Table_restaurant(int nbPlaces, int numeroTable) {
+	public TableRestaurant(int nbPlaces, int numeroTable) {
 		this.nbPlaces = nbPlaces;
 		this.numeroTable = numeroTable;
 	}
 	
-	public Table_restaurant() {}
+	public TableRestaurant() {}
 
 	public int getId() {
 		return id;

@@ -17,7 +17,7 @@ public class RestaurantDAO {
 	String password = System.getenv("FIL_ROUGE_PASSWORD");
 	
 	public List<Restaurant> select() {
-		List<Restaurant> restaurant = new ArrayList<>();
+		List<Restaurant> restaurants = new ArrayList<>();
 			
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
@@ -26,14 +26,14 @@ public class RestaurantDAO {
 				ResultSet rs = ps.executeQuery();
 				
 				while (rs.next()) {
-					restaurant.add(convertResultSetToRestaurant(rs));
+					restaurants.add(convertResultSetToRestaurant(rs));
 				}
 			}
 			cnx.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return restaurant;
+		return restaurants;
 	}
 
 	public Restaurant insert(Restaurant restaurant) {
@@ -42,10 +42,11 @@ public class RestaurantDAO {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement(
-						"INSERT INTO restaurants(nom, url_image, id_cartes)"
+						"INSERT INTO restaurants(nom, adresse, url_image)"
 						+ "VALUES (?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
 				ps.setString(1, restaurant.getNom());
-				ps.setString(2, restaurant.getUrl_image());
+				ps.setString(2, restaurant.getAdresse());
+				ps.setString(3, restaurant.getUrl_image());
 				
 				ps.executeUpdate();
 				ResultSet rs = ps.getGeneratedKeys();
@@ -65,10 +66,11 @@ public class RestaurantDAO {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement(
-						"UPDATE restaurants SET nom = ?, url_image = ? WHERE id = ?");
+						"UPDATE restaurants SET nom = ?, adresse = ?, url_image = ? WHERE id = ?");
 				ps.setString(1, restaurant.getNom());
-				ps.setString(2, restaurant.getUrl_image());
-				ps.setInt(3, restaurant.getId());
+				ps.setString(2, restaurant.getAdresse());
+				ps.setString(3, restaurant.getUrl_image());
+				ps.setInt(4, restaurant.getId());
 				
 				ps.executeUpdate();
 			}
@@ -96,6 +98,7 @@ public class RestaurantDAO {
 		Restaurant restaurant = new Restaurant();
 		restaurant.setId(rs.getInt("id"));
 		restaurant.setNom(rs.getString("nom"));
+		restaurant.setAdresse(rs.getString("adresse"));
 		restaurant.setUrl_image(rs.getString("url_image"));
 		return restaurant;
 	}

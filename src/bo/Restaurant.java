@@ -1,23 +1,24 @@
 package bo;
 
-// import java.util.ArrayList;
-// import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Restaurant {
 	private int id;
 	private String nom;
+	private String adresse;
 	private String url_image;
-	// private List<Carte> liste_cartes = new ArrayList<>();
-	// private List<Horaire> liste_horaires = new ArrayList<>();
-	// private List<Table_Restaurant> liste_tables = new ArrayList<>();
+	private List<Carte> cartes = new ArrayList<>();
+	private List<Horaire> horaires = new ArrayList<>();
+	private List<TableRestaurant> tables = new ArrayList<>();
 	
-	public Restaurant(int id, String nom, String url_image) {
+	public Restaurant(int id, String nom, String adresse, String url_image) {
 		this.id = id;
 		this.nom = nom;
 		this.url_image = url_image;
 	}
 	
-	public Restaurant(String nom, String url_image) {
+	public Restaurant(String nom, String adresse, String url_image) {
 		this.nom = nom;
 		this.url_image = url_image;
 	}
@@ -40,12 +41,44 @@ public class Restaurant {
 		this.nom = nom;
 	}
 
+	public String getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
+
 	public String getUrl_image() {
 		return url_image;
 	}
 
 	public void setUrl_image(String url_image) {
 		this.url_image = url_image;
+	}
+
+	public List<Carte> getCartes() {
+		return cartes;
+	}
+
+	public void setCartes(List<Carte> cartes) {
+		this.cartes = cartes;
+	}
+
+	public List<Horaire> getHoraires() {
+		return horaires;
+	}
+
+	public void setHoraires(List<Horaire> horaires) {
+		this.horaires = horaires;
+	}
+
+	public List<TableRestaurant> getTables() {
+		return tables;
+	}
+
+	public void setTables(List<TableRestaurant> tables) {
+		this.tables = tables;
 	}
 
 	@Override
