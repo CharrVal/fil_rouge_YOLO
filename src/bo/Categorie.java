@@ -1,8 +1,10 @@
 package bo;
 
 public class Categorie {
+
 	private int id;
 	private String libelle;
+	
 
 	public Categorie(int id, String libelle) {
 		this.id = id;
@@ -34,6 +36,5 @@ public class Categorie {
 	@Override
 	public String toString() {
 		return "Categorie n°" + id + " :" + "\n nom de la categorie :" + libelle;
-
 	}
 }

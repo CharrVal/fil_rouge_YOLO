@@ -1,8 +1,6 @@
 package bll;
 
 import java.util.List;
-
-import bo.Carte;
 import bo.Restaurant;
 import dal.RestaurantDAO;
 import exceptions.RestaurantException;
@@ -13,8 +11,8 @@ public class RestaurantBLL {
 		return dao.select();
 	}
 
-	public Restaurant insert(String nom, String adresse, String url_image, Carte carte) throws RestaurantException {
-		Restaurant restaurant = new Restaurant(nom, adresse, url_image, carte);
+	public Restaurant insert(String nom, String adresse, String url_image) throws RestaurantException {
+		Restaurant restaurant = new Restaurant(nom, adresse, url_image);
 	
 		checkRestaurants(restaurant);
 		

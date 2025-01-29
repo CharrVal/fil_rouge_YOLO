@@ -64,7 +64,7 @@ public class TestAffichage {
 			Carte carte = new Carte(4,"un nom","une description");		
 		
 			try {
-				RestaurantBLL.insert(nom, adresse, url_image, carte);
+				RestaurantBLL.insert(nom, adresse, url_image);
 				insertionFailed = false;
 			} catch (RestaurantException e) {
 				insertionFailed = true;

@@ -7,3 +7,4 @@ public class HoraireException extends Exception {
 		super(message);
 	}
 }
+

@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import bo.Carte;
 import bo.Restaurant;
 
@@ -27,6 +26,7 @@ public class RestaurantDAO {
 		List<Restaurant> restaurants = new ArrayList<>();
 		
 		try {
+			//Connection cnx = DriverManager.getConnection("jdbc:sqlserver://localhost;databasename=YOLO_DB;username=ops-control;password=951753;trustservercertificate=true");
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement("SELECT r.id, r.nom, r.adresse, r.url_image, c.id AS carte_id, c.nom AS carte_nom, c.description AS carte_description " +
@@ -63,6 +63,7 @@ public class RestaurantDAO {
 				if (rs.next()) {
 					restaurant.setId(rs.getInt(1));
 				}
+				
 			}
 			cnx.close();
 		} catch (SQLException e) {

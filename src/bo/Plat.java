@@ -21,7 +21,6 @@ public class Plat {
 		this.categorie = categorie;
 	}
 
-
 	public Plat() {}
 
 
