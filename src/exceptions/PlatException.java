@@ -1,10 +1,9 @@
 package exceptions;
 
-public class HoraireException extends Exception {
+public class PlatException extends Exception{
 	private static final long serialVersionUID = 1L;
 
-	public HoraireException(String message) {
+	public PlatException(String message) {
 		super(message);
 	}
 }
-

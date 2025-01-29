@@ -17,9 +17,9 @@ public class HoraireDAO {
 
 	public List<Horaire> select() {
 		List<Horaire> horaires = new ArrayList<>();
-		
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
+
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement("SELECT * FROM horaires");
 				ResultSet rs = ps.executeQuery();
@@ -36,7 +36,7 @@ public class HoraireDAO {
 	}
 	
 	
-	
+
 	public List<Horaire> insert(List<Horaire> horaires, int idRestaurant) {
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
@@ -50,9 +50,9 @@ public class HoraireDAO {
 					psHoraire.setTime(3, java.sql.Time.valueOf(horaireCurrent.getFermeture()));
 					psHoraire.setInt(4, idRestaurant);
 					
+					
 					psHoraire.executeUpdate(); 
 		
-	
 				}
 			}
 			
@@ -73,6 +73,7 @@ public class HoraireDAO {
 				ps.setString(1, horaire.getJour());
 				ps.setTime(2, java.sql.Time.valueOf(horaire.getOuverture()));
 				ps.setTime(3, java.sql.Time.valueOf(horaire.getFermeture()));
+
 				
 				ps.executeUpdate();
 			}
@@ -86,6 +87,7 @@ public class HoraireDAO {
 	public void delete(int id) {
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
+
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement("DELETE FROM horaires WHERE id = ?");
 				ps.setInt(1, id);
@@ -109,6 +111,4 @@ public class HoraireDAO {
 	} 
 
 	
-	
-
 }

@@ -4,7 +4,6 @@ import java.time.LocalTime;
 
 
 public class Horaire {
-	
 	private int id;
 	private String jour;
 	private LocalTime ouverture;
@@ -23,9 +22,8 @@ public class Horaire {
 		this.ouverture = ouverture;
 		this.fermeture = fermeture;
 	}
-
-	public Horaire() {
-	}
+	
+	public Horaire() {}
 
 	public int getId() {
 		return id;
@@ -67,4 +65,5 @@ public class Horaire {
 					ouverture,
 					fermeture);
 	}
+
 }
