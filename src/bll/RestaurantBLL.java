@@ -21,6 +21,7 @@ public class RestaurantBLL {
 		RestaurantDAO dao = new RestaurantDAO();
 		dao.insert(restaurant);
 		
+		System.out.println(restaurant.getId());
 		return restaurant;
 	}
 	

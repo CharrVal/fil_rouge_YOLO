@@ -92,7 +92,7 @@ public class CategorieDAO {
  	private Categorie convertResultSetToCategorie(ResultSet rs) throws SQLException {
 		Categorie categorie = new Categorie();
 		categorie.setId(rs.getInt("id"));
-		categorie.setLibelle(rs.getString("categorie"));
+		categorie.setLibelle(rs.getString("categories"));
 		return categorie;
 	} 	
 }

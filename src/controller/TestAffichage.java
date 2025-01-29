@@ -6,14 +6,14 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import bll.CarteBLL;
-import bll.RestaurantBLL;
 import bll.PlatBLL;
+import bll.RestaurantBLL;
 import bo.Carte;
+import bo.Categorie;
 import bo.Plat;
 import bo.Restaurant;
 import exceptions.CarteException;
 import exceptions.PlatException;
-
 import exceptions.RestaurantException;
 
 public class TestAffichage {
@@ -52,13 +52,13 @@ public class TestAffichage {
 	private static void afficherMenuAjoutRestaurant() throws RestaurantException {
 		boolean insertionFailed;
 		do {
-			System.out.print("Veuillez saisir le nom du nouveau resto : ");
+			System.out.print("Veuillez saisir le nom du restaurant : ");
 			String nom = scan.nextLine();
 			
-			System.out.print("Veuillez saisir la adresse du resto : ");
+			System.out.print("Veuillez saisir l'adresse du restaurant : ");
 			String adresse = scan.nextLine();
 			
-			System.out.print("Veuillez saisir l'url de l'image du resto : ");
+			System.out.print("Veuillez saisir l'url de l'image du restaurant : ");
 			String url_image = scan.nextLine();
 			
 			Carte carte = new Carte(4,"un nom","une description");		
@@ -68,9 +68,12 @@ public class TestAffichage {
 				insertionFailed = false;
 			} catch (RestaurantException e) {
 				insertionFailed = true;
-				System.err.println("Echec de la création du resto :");
+				System.err.println("Echec de la création du restaurant :");
 				System.err.println(e.getMessage());
 			}
+			
+			
+			
 		} while (insertionFailed);
 	}
 	
@@ -94,7 +97,7 @@ public class TestAffichage {
 					break;
 				} else {
 					if (choix != 0) {
-						System.err.println("L'identifiant sélectionné n'existe pas en base.");
+						System.err.println("L'identifiant sélectionné n'existe.");
 						choix = -1;
 					}
 				}
@@ -108,16 +111,16 @@ public class TestAffichage {
 		
 		boolean updateFailed;
 		do {
-			System.out.print("Veuillez saisir le nouveau nom du resto : ");
+			System.out.print("Veuillez saisir le nouveau nom du restaurant : ");
 			String nom = scan.nextLine();
 			
-			System.out.print("Veuillez saisir la nouvelle adresse du resto : ");
+			System.out.print("Veuillez saisir la nouvelle adresse du restaurant : ");
 			String adresse = scan.nextLine();
 			
-			System.out.print("Veuillez saisir la nouvelle url de l'image du resto : ");
+			System.out.print("Veuillez saisir la nouvelle url de l'image du restaurant : ");
 			String url_image = scan.nextLine();
 			
-			Restaurant restoTemp = new Restaurant(choix, nom, adresse, url_image, null);
+			Restaurant restoTemp = new Restaurant(choix, nom, adresse, url_image);
 			
 			try {
 				RestaurantBLL.update(restoTemp);
@@ -150,7 +153,7 @@ public class TestAffichage {
 					choix = 0;
 				} else {
 					if (choix != 0) {
-						System.err.println("L'identifiant sélectionné n'existe pas en base.");
+						System.err.println("L'identifiant sélectionné n'existe pas.");
 						choix = -1;
 					}
 				}
@@ -173,7 +176,7 @@ public class TestAffichage {
 	    
 	    System.out.println("+" + "-".repeat(totalLength) + "+");
 	}
-	
+
 	private static int afficherMenu() {
 		int choix;
 		do {
@@ -295,12 +298,17 @@ public class TestAffichage {
 			
 			System.out.println("Vaillez saisir le prix du plat : ");
 			double prix = scan.nextDouble();
+			scan.nextLine();
 			
 			System.out.print("Veuillez saisir la description du plat : ");
 			String description = scan.nextLine();
 			
+			System.out.print("Veuillez saisir la categorie (entree, plat, dessert, boisson) : ");
+			String choixCategorie = scan.nextLine();
+			Categorie categorie = new Categorie(3, choixCategorie);
+			
 			try {
-				PlatBLL.insert(nom, prix, description, null);
+				PlatBLL.insert(nom, prix, description, categorie);
 				insertionFailed = false;
 			} catch (PlatException e) {
 				insertionFailed = true;
