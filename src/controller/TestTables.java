@@ -45,7 +45,9 @@ public class TestTables {
 			Carte carte = new Carte();
 			
 			try {
-				restaurant = RestaurantBLL.insert(nom, adresse, url_image, carte);
+
+				restaurant = RestaurantBLL.insert(nom, adresse, url_image);
+
 				insertionFailed = false;
 				System.out.println(restaurant.getId());
 				idRestaurant = restaurant.getId();

@@ -1,21 +1,23 @@
 package bo;
 
-import java.time.LocalDate;
+import java.time.LocalTime;
+
 
 public class Horaire {
 	private int id;
 	private String jour;
-	private LocalDate ouverture;
-	private LocalDate fermeture;
+	private LocalTime ouverture;
+	private LocalTime fermeture;
+	 
 	
-	public Horaire(int id, String jour, LocalDate ouverture, LocalDate fermeture) {
+	public Horaire(int id, String jour, LocalTime ouverture, LocalTime fermeture) {
 		this.id = id;
 		this.jour = jour;
 		this.ouverture = ouverture;
 		this.fermeture = fermeture;
 	}
-	
-	public Horaire(String jour, LocalDate ouverture, LocalDate fermeture) {
+
+	public Horaire(String jour, LocalTime ouverture, LocalTime fermeture) {
 		this.jour = jour;
 		this.ouverture = ouverture;
 		this.fermeture = fermeture;
@@ -39,26 +41,29 @@ public class Horaire {
 		this.jour = jour;
 	}
 
-	public LocalDate getOuverture() {
+	public LocalTime getOuverture() {
 		return ouverture;
 	}
 
-	public void setOuverture(LocalDate ouverture) {
+	public void setOuverture(LocalTime ouverture) {
 		this.ouverture = ouverture;
 	}
 
-	public LocalDate getFermeture() {
+	public LocalTime getFermeture() {
 		return fermeture;
 	}
 
-	public void setFermeture(LocalDate fermeture) {
+	public void setFermeture(LocalTime fermeture) {
 		this.fermeture = fermeture;
 	}
 
 	@Override
 	public String toString() {
-		return "Horaire : " + id + "\n\t• jour :" + jour + "\n\t• ouverture :" + ouverture + "\n\t• fermeture :"
-				+ fermeture;
+			return String.format("| %-4s | %-20s | %-10s | %-14s |\n","ID","Jour","Ouverture","Fermeture")+String.format("| %-4d | %-20s | %-10s | %-14s |\n",
+					id,
+					jour,
+					ouverture,
+					fermeture);
 	}
-	
+
 }

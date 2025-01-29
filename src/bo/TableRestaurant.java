@@ -33,7 +33,7 @@ public class TableRestaurant {
 	public void setNbPlaces(int nbPlaces) {
 		this.nbPlaces = nbPlaces;
 	}
-	
+
 	public int getNumeroTable() {
 		return numeroTable;
 	}
