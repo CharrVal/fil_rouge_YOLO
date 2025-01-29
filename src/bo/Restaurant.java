@@ -3,7 +3,8 @@ package bo;
 import java.util.ArrayList;
 import java.util.List;
 
-import dal.TableRestaurantDAO;
+import bll.HoraireBLL;
+import bll.TableRestaurantBLL;
 
 public class Restaurant {
 	private int id;
@@ -87,11 +88,30 @@ public class Restaurant {
 	public void setTables(List<TableRestaurant> tables) {
 		this.tablesRestaurant = tables;
 	}
+	
+	public String afficherTables(Restaurant restaurant) {
+		TableRestaurantBLL tableBLL = new TableRestaurantBLL();
+		List<TableRestaurant> tablesListe = tableBLL.selectFromRestaurant(restaurant);
+		String tablesString = "Tables n° ";
+		for(TableRestaurant tableCurrent : tablesListe) {
+			tablesString += tableCurrent.getNumeroTable() + " ";
+		}
+		return tablesString;
+	}
+
+	public String afficherHoraires(Restaurant restaurant) {
+		HoraireBLL horaireBLL = new HoraireBLL();
+		List<Horaire> horairesListe = horaireBLL.selectFromRestaurant(restaurant);
+		String horaireString = " ";
+		for(Horaire horaireCurrent : horairesListe) {
+			horaireString += horaireCurrent.getJour() + " : " + horaireCurrent.getOuverture() + " à " + horaireCurrent.getFermeture() + " | ";
+		}
+		return horaireString;
+	}
 
 	@Override
 	public String toString() {
-		TableRestaurantDAO tableDAO = new TableRestaurantDAO();
-		return String.format("%-4d %-30s %-30s %-20s %-50s %-20s %-50s\n", id, nom, adresse, carte.getNom(), horaires, tableDAO.selectFromRestaurant(this), url_image);
+		return String.format("%-4d %-30s %-30s %-20s %-80s %-20s %-50s\n", id, nom, adresse, carte.getNom(), afficherHoraires(this), afficherTables(this), url_image);
 	}
 
 }
