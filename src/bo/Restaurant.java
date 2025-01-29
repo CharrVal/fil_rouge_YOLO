@@ -3,6 +3,8 @@ package bo;
 import java.util.ArrayList;
 import java.util.List;
 
+import dal.TableRestaurantDAO;
+
 public class Restaurant {
 	private int id;
 	private String nom;
@@ -12,22 +14,7 @@ public class Restaurant {
 	private List<Horaire> horaires = new ArrayList<>();
 	private List<TableRestaurant> tablesRestaurant = new ArrayList<>();
 	
-
-	public Restaurant(int id, String nom, String adresse, String url_image, Carte carte) {
-		this.id = id;
-		this.nom = nom;
-		this.adresse = adresse;
-		this.url_image = url_image;
-		this.carte = carte;
-	}
-
-	public Restaurant(String nom, String adresse, String url_image, Carte carte) {
-		this.nom = nom;
-		this.adresse = adresse;
-		this.url_image = url_image;
-		this.carte = carte;
-	}
-
+			
 	public Restaurant(int id, String nom, String adresse, String url_image) {
 		this.id = id;
 		this.nom = nom;
@@ -40,13 +27,7 @@ public class Restaurant {
 		this.adresse = adresse;
 		this.url_image = url_image;
 	}
-	
-	public Restaurant(String nom, String adresse, String url_image, List<TableRestaurant> tablesRestaurant) {
-		this.nom = nom;
-		this.adresse = adresse;
-		this.url_image = url_image;
-		this.tablesRestaurant = tablesRestaurant;
-	}
+
 
 	public Restaurant() {}
 	
@@ -109,7 +90,8 @@ public class Restaurant {
 
 	@Override
 	public String toString() {
-		return String.format("%-4d %-30s %-30s %-20s %-50s %-20s %-50s\n", id, nom, adresse, carte, horaires, tablesRestaurant, url_image);
+		TableRestaurantDAO tableDAO = new TableRestaurantDAO();
+		return String.format("%-4d %-30s %-30s %-20s %-50s %-20s %-50s\n", id, nom, adresse, carte.getNom(), horaires, tableDAO.selectFromRestaurant(this), url_image);
 	}
 
 }

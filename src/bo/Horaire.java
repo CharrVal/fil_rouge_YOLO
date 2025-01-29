@@ -1,23 +1,24 @@
 package bo;
 
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.time.LocalDate;
+import java.time.LocalTime;
+
+
 
 public class Horaire {
 	private int id;
 	private String jour;
-	private Timestamp ouverture;
-	private Timestamp fermeture;
+	private LocalTime ouverture;
+	private LocalTime fermeture;
+	 
 	
-	public Horaire(int id, String jour, Timestamp ouverture, Timestamp fermeture) {
+	public Horaire(int id, String jour, LocalTime ouverture, LocalTime fermeture) {
 		this.id = id;
 		this.jour = jour;
 		this.ouverture = ouverture;
 		this.fermeture = fermeture;
 	}
-	
-	public Horaire(String jour, Timestamp ouverture, Timestamp fermeture) {
+
+	public Horaire(String jour, LocalTime ouverture, LocalTime fermeture) {
 		this.jour = jour;
 		this.ouverture = ouverture;
 		this.fermeture = fermeture;
@@ -41,26 +42,29 @@ public class Horaire {
 		this.jour = jour;
 	}
 
-	public Timestamp getOuverture() {
+	public LocalTime getOuverture() {
 		return ouverture;
 	}
 
-	public void setOuverture(Timestamp ouverture) {
+	public void setOuverture(LocalTime ouverture) {
 		this.ouverture = ouverture;
 	}
 
-	public Timestamp getFermeture() {
+	public LocalTime getFermeture() {
 		return fermeture;
 	}
 
-	public void setFermeture(Timestamp fermeture) {
+	public void setFermeture(LocalTime fermeture) {
 		this.fermeture = fermeture;
 	}
 
 	@Override
 	public String toString() {
-		return "Horaire : " + id + "\n\t• jour :" + jour + "\n\t• ouverture :" + ouverture + "\n\t• fermeture :"
-				+ fermeture;
+			return String.format("| %-4s | %-20s | %-10s | %-14s |\n","ID","Jour","Ouverture","Fermeture")+String.format("| %-4d | %-20s | %-10s | %-14s |\n",
+					id,
+					jour,
+					ouverture,
+					fermeture);
 	}
 
 }

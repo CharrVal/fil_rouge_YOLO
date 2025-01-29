@@ -39,12 +39,15 @@ public class TestTables {
 			System.out.print("Veuillez saisir l'url de l'image du resto : ");
 			String url_image = scan.nextLine();
 			
+			Restaurant restaurant = new Restaurant();
 			int idRestaurant = 0;			
 			
 			Carte carte = new Carte();
 			
 			try {
-				Restaurant restaurant = RestaurantBLL.insert(nom, adresse, url_image, carte);
+
+				restaurant = RestaurantBLL.insert(nom, adresse, url_image);
+
 				insertionFailed = false;
 				System.out.println(restaurant.getId());
 				idRestaurant = restaurant.getId();
@@ -56,7 +59,7 @@ public class TestTables {
 			} 
 			
 			
-			afficherMenuAjoutTablesDansRestaurant(idRestaurant);
+			afficherMenuAjoutTablesDansRestaurant(restaurant, idRestaurant);
 			
 			
 		} while (insertionFailed);
@@ -64,7 +67,7 @@ public class TestTables {
 
 
 
-	private static void afficherMenuAjoutTablesDansRestaurant(int idRestaurant) throws Exception {
+	private static void afficherMenuAjoutTablesDansRestaurant(Restaurant restaurant, int idRestaurant) throws Exception {
 		System.out.print("combien de tables dans votre resto ? :");
 		int nbTables = scan.nextInt();
 		scan.nextLine();
@@ -89,6 +92,10 @@ public class TestTables {
 		
 		TableRestaurantBLL tableRestaurantBLL = new TableRestaurantBLL();
 		tableRestaurantBLL.insert(tablesRestaurant, idRestaurant);
+		
+		restaurant.setTables(tablesRestaurant);
+		
+		System.out.println(restaurant.getTables());
 	}
 	
 	

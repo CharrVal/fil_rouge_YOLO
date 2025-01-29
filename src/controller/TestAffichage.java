@@ -12,6 +12,7 @@ import bo.Carte;
 import bo.Categorie;
 import bo.Plat;
 import bo.Restaurant;
+import dal.TableRestaurantDAO;
 import exceptions.CarteException;
 import exceptions.PlatException;
 import exceptions.RestaurantException;
@@ -64,7 +65,7 @@ public class TestAffichage {
 			Carte carte = new Carte(4,"un nom","une description");		
 		
 			try {
-				RestaurantBLL.insert(nom, adresse, url_image, carte);
+				RestaurantBLL.insert(nom, adresse, url_image);
 				insertionFailed = false;
 			} catch (RestaurantException e) {
 				insertionFailed = true;
@@ -175,6 +176,9 @@ public class TestAffichage {
 	    }
 	    
 	    System.out.println("+" + "-".repeat(totalLength) + "+");
+	    
+	    
+	    
 	}
 
 	private static int afficherMenu() {
