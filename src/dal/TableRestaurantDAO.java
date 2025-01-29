@@ -16,7 +16,7 @@ public class TableRestaurantDAO {
 	String password = System.getenv("FIL_ROUGE_PASSWORD");
 	
 	public List<TableRestaurant> select() {
-		List<TableRestaurant> tableRestaurants = new ArrayList<>();
+		List<TableRestaurant> tablesRestaurant = new ArrayList<>();
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
@@ -24,39 +24,38 @@ public class TableRestaurantDAO {
 				ResultSet rs = ps.executeQuery();
 				
 				while (rs.next()) {
-					tableRestaurants.add(convertResultSetToTableRestaurant(rs));
+					tablesRestaurant.add(convertResultSetToTableRestaurant(rs));
 				}
 			}
 			cnx.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return tableRestaurants;
+		return tablesRestaurant;
 	}
 
-	public TableRestaurant insert(TableRestaurant tableRestaurant) {
+	public List<TableRestaurant> insert(List<TableRestaurant> tablesRestaurant, int idRestaurant) {
 		try {
-			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
 			if(!cnx.isClosed()) {
-				PreparedStatement ps = cnx.prepareStatement(
-						"INSERT INTO tables_restaurant(nb_places, numero_table)"
-						+ "VALUES (?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-				ps.setInt(1, tableRestaurant.getNbPlaces());
-				ps.setInt(2, tableRestaurant.getNumeroTable());
-
-				
-				ps.executeUpdate();
-				ResultSet rs = ps.getGeneratedKeys();
-				if (rs.next()) {
-					tableRestaurant.setId(rs.getInt(1));
+				for(TableRestaurant tableCurrent : tablesRestaurant){
+					PreparedStatement psTables = cnx.prepareStatement(
+							"INSERT INTO tables_restaurant(nb_places, numero_table, id_restaurants)"
+							+ "VALUES (?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+					psTables.setInt(1, tableCurrent.getNbPlaces());
+					psTables.setInt(2, tableCurrent.getNumeroTable());
+					psTables.setInt(3, idRestaurant);
+					
+					psTables.executeUpdate(); 
 				}
 			}
 			cnx.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return tableRestaurant;
+		return tablesRestaurant;
 	}
+
 	
 	public void update(TableRestaurant tableRestaurant) {
 		try {
@@ -75,6 +74,7 @@ public class TableRestaurantDAO {
 			e.printStackTrace();
 		}	
 	}
+
 	
 	public void delete(int id) {
 		try {
@@ -89,6 +89,7 @@ public class TableRestaurantDAO {
 			e.printStackTrace();
 		}
 	}
+
 
  	private TableRestaurant convertResultSetToTableRestaurant(ResultSet rs) throws SQLException {
 		TableRestaurant restaurant = new TableRestaurant();

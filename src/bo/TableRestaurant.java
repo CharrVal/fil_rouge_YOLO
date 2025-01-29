@@ -10,7 +10,7 @@ public class TableRestaurant {
 		this.nbPlaces = nbPlaces;
 		this.numeroTable = numeroTable;
 	}
-	
+
 	public TableRestaurant(int nbPlaces, int numeroTable) {
 		this.nbPlaces = nbPlaces;
 		this.numeroTable = numeroTable;

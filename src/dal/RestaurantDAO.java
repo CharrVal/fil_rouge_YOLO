@@ -34,6 +34,8 @@ public class RestaurantDAO {
 				
 				ResultSet rs = ps.executeQuery();
 				
+				
+				
 				while (rs.next()) {
 					restaurants.add(convertResultSetToRestaurant(rs));
 				}
@@ -47,7 +49,6 @@ public class RestaurantDAO {
 
 	public Restaurant insert(Restaurant restaurant) {
 		try {
-
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
 
 			if(!cnx.isClosed()) {
@@ -57,15 +58,12 @@ public class RestaurantDAO {
 				ps.setString(1, restaurant.getNom());
 				ps.setString(2, restaurant.getAdresse());
 				ps.setString(3, restaurant.getUrl_image());
-				
 				ps.executeUpdate(); 
 				ResultSet rs = ps.getGeneratedKeys();
 				if (rs.next()) {
-					restaurant.getCarte().setId(rs.getInt(1));
-			}
-
+					restaurant.setId(rs.getInt(1));
 				}
-						
+			}
 			cnx.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -78,14 +76,14 @@ public class RestaurantDAO {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");	
 
 			if(!cnx.isClosed()) {
-				PreparedStatement ps = cnx.prepareStatement(
+				PreparedStatement psRestos = cnx.prepareStatement(
 						"UPDATE restaurants SET nom = ?, adresse = ?, url_image = ? WHERE id = ?");
-				ps.setString(1, restaurant.getNom());
-				ps.setString(2, restaurant.getAdresse());
-				ps.setString(3, restaurant.getUrl_image());
-				ps.setInt(4, restaurant.getId());
+				psRestos.setString(1, restaurant.getNom());
+				psRestos.setString(2, restaurant.getAdresse());
+				psRestos.setString(3, restaurant.getUrl_image());
+				psRestos.setInt(4, restaurant.getId());
 				
-				ps.executeUpdate();
+				psRestos.executeUpdate();
 			}
 			cnx.close();
 		} catch (SQLException e) {
@@ -99,9 +97,9 @@ public class RestaurantDAO {
 
 
 			if(!cnx.isClosed()) {
-				PreparedStatement ps = cnx.prepareStatement("DELETE FROM restaurants WHERE id = ?");
-				ps.setInt(1, id);
-				ps.executeUpdate();
+				PreparedStatement psRestos = cnx.prepareStatement("DELETE FROM restaurants WHERE id = ?");
+				psRestos.setInt(1, id);
+				psRestos.executeUpdate();
 			}
 			cnx.close();
 		} catch (SQLException e) {
@@ -119,4 +117,5 @@ public class RestaurantDAO {
 		restaurant.setCarte(carte);
 		return restaurant;
 	}
+
 }

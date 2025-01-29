@@ -10,8 +10,9 @@ public class Restaurant {
 	private String url_image;
 	private Carte carte;
 	private List<Horaire> horaires = new ArrayList<>();
-	private List<TableRestaurant> tables = new ArrayList<>();
+	private List<TableRestaurant> tablesRestaurant = new ArrayList<>();
 	
+
 	public Restaurant(int id, String nom, String adresse, String url_image, Carte carte) {
 		this.id = id;
 		this.nom = nom;
@@ -19,12 +20,32 @@ public class Restaurant {
 		this.url_image = url_image;
 		this.carte = carte;
 	}
-	
+
 	public Restaurant(String nom, String adresse, String url_image, Carte carte) {
 		this.nom = nom;
 		this.adresse = adresse;
 		this.url_image = url_image;
 		this.carte = carte;
+	}
+
+	public Restaurant(int id, String nom, String adresse, String url_image) {
+		this.id = id;
+		this.nom = nom;
+		this.adresse = adresse;
+		this.url_image = url_image;
+	}
+
+	public Restaurant(String nom, String adresse, String url_image) {
+		this.nom = nom;
+		this.adresse = adresse;
+		this.url_image = url_image;
+	}
+	
+	public Restaurant(String nom, String adresse, String url_image, List<TableRestaurant> tablesRestaurant) {
+		this.nom = nom;
+		this.adresse = adresse;
+		this.url_image = url_image;
+		this.tablesRestaurant = tablesRestaurant;
 	}
 
 	public Restaurant() {}
@@ -37,11 +58,9 @@ public class Restaurant {
 		this.id = id;
 	}
 
-
 	public String getNom() {
 		return nom;
 	}
-
 
 	public void setNom(String nom) {
 		this.nom = nom;
@@ -81,17 +100,16 @@ public class Restaurant {
 	}
 
 	public List<TableRestaurant> getTables() {
-		return tables;
+		return tablesRestaurant;
 	}
 
 	public void setTables(List<TableRestaurant> tables) {
-		this.tables = tables;
+		this.tablesRestaurant = tables;
 	}
 
-	
 	@Override
 	public String toString() {
-		return String.format("%-4d %-30s %-30s %-20s %-50s %-20s %-50s\n", id, nom, adresse, carte, horaires, tables, url_image);
+		return String.format("%-4d %-30s %-30s %-20s %-50s %-20s %-50s\n", id, nom, adresse, carte, horaires, tablesRestaurant, url_image);
 	}
 
 }

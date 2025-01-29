@@ -16,7 +16,7 @@ public class CarteBLL {
 	public Carte insert(String nom, String description) throws CarteException {
 
 		Carte carte = new Carte(nom, description);
-		checkCarte(carte);
+		checkCartes(carte);
 		
 		CarteDAO dao = new CarteDAO();
 		dao.insert(carte);
@@ -24,14 +24,22 @@ public class CarteBLL {
 		return carte;
 	}
 	
-	private void checkCarte(Carte carte) throws CarteException {
-		// if (cartes.getNom() == null || cartes.getNom().length() < 2 || cartes.getNom().length() > 20) {
-			// throw new CartesException("Le nom doit faire entre 2 et 20 caractères.");
-		// les if sont à déterminer !
+	/*
+	 * Pour avoir le droit de réaliser l'insertion, une carte doit respecter les contraintes suivantes :
+	 * nom compris entre 2 et 30 caractères,
+	 * description compris entre 2 et 255 caractères,
+	 */
+	private void checkCartes(Carte carte) throws CarteException {
+		 if (carte.getNom() == null || carte.getNom().length() < 2 || carte.getNom().length() > 30) {
+			 throw new CarteException("Le nom doit faire entre 2 et 30 caractères.");
 		}
+		if (carte.getDescription() == null || carte.getDescription().length() < 2 || carte.getDescription().length() > 255) {
+			 throw new CarteException("La description doit faire entre 2 et 255 caractères.");
+		}
+	}
 	
 	public void update(Carte carte) throws CarteException {
-		checkCarte(carte);
+		checkCartes(carte);
 		
 		CarteDAO dao = new CarteDAO();
 		dao.update(carte);
