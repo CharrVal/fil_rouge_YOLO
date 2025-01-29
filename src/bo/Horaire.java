@@ -1,21 +1,23 @@
 package bo;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class Horaire {
 	private int id;
 	private String jour;
-	private LocalDate ouverture;
-	private LocalDate fermeture;
+	private Timestamp ouverture;
+	private Timestamp fermeture;
 	
-	public Horaire(int id, String jour, LocalDate ouverture, LocalDate fermeture) {
+	public Horaire(int id, String jour, Timestamp ouverture, Timestamp fermeture) {
 		this.id = id;
 		this.jour = jour;
 		this.ouverture = ouverture;
 		this.fermeture = fermeture;
 	}
 	
-	public Horaire(String jour, LocalDate ouverture, LocalDate fermeture) {
+	public Horaire(String jour, Timestamp ouverture, Timestamp fermeture) {
 		this.jour = jour;
 		this.ouverture = ouverture;
 		this.fermeture = fermeture;
@@ -39,19 +41,19 @@ public class Horaire {
 		this.jour = jour;
 	}
 
-	public LocalDate getOuverture() {
+	public Timestamp getOuverture() {
 		return ouverture;
 	}
 
-	public void setOuverture(LocalDate ouverture) {
+	public void setOuverture(Timestamp ouverture) {
 		this.ouverture = ouverture;
 	}
 
-	public LocalDate getFermeture() {
+	public Timestamp getFermeture() {
 		return fermeture;
 	}
 
-	public void setFermeture(LocalDate fermeture) {
+	public void setFermeture(Timestamp fermeture) {
 		this.fermeture = fermeture;
 	}
 
