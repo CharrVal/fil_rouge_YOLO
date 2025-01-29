@@ -3,6 +3,7 @@ package bll;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
+
 import bo.Horaire;
 import dal.HoraireDAO;
 import exceptions.HoraireException;
@@ -17,8 +18,9 @@ public class HoraireBLL {
 	
 	
 	public List<Horaire> insert(List<Horaire> horaires,int idRestaurant) throws HoraireException{
-		//Horaire horaire=new Horaire(nom,ouverture,fermeture);
-		//checkHoraire(horaire);
+		for(Horaire heure:horaires) {
+			checkHoraire(heure);
+		}
 		HoraireDAO dao = new HoraireDAO();
 		dao.insert(horaires,idRestaurant);
 		return horaires;
@@ -26,8 +28,8 @@ public class HoraireBLL {
 	}
 	
 	
-	public Horaire update(String nom, LocalTime ouverture,LocalTime fermeture) throws HoraireException {
-		Horaire horaire=new Horaire(nom,ouverture,fermeture);
+	public Horaire update(String jour,LocalTime ouverture,LocalTime fermeture) throws HoraireException {
+		Horaire horaire=new Horaire(jour,ouverture,fermeture);
 		checkHoraire(horaire);
 		HoraireDAO dao = new HoraireDAO();
 		dao.update(horaire);
@@ -44,9 +46,14 @@ public class HoraireBLL {
 	
 	
 	public void checkHoraire(Horaire horaire) throws HoraireException{
-		if(!(SEMAINE.contains(horaire.getJour()))) {
-			throw new HoraireException("Entrer un jour de semaine valide");
-		}
+			if(!(SEMAINE.contains(horaire.getJour()))) {
+				throw new HoraireException("Entrer un jour de semaine valide");
+			}
+		    if (horaire.getOuverture().isAfter(horaire.getFermeture())) {
+		        throw new HoraireException("L'heure d'ouverture doit être avant l'heure de fermeture");
+		    }
+			
 	}
-	
 }
+	
+

@@ -9,7 +9,6 @@ import java.util.Scanner;
 
 import bll.HoraireBLL;
 import bll.RestaurantBLL;
-import bo.Carte;
 import bo.Horaire;
 import bo.Restaurant;
 import exceptions.RestaurantException;
@@ -33,7 +32,6 @@ public class TestHoraire {
 			System.out.print("Veuillez saisir l'url de l'image du resto : ");
 			String url_image = scan.nextLine();
 			
-			Carte carte = new Carte();
 			try {
 				Restaurant restaurant=RestaurantBLL.insert(nom, adresse, url_image);
 				insertionFailed = false;
@@ -43,9 +41,7 @@ public class TestHoraire {
 				System.err.println("Echec de la création du resto :");
 				System.err.println(e.getMessage());
 			}		
-			
-
-			
+		
 			
 		} while (insertionFailed);
 		
@@ -83,15 +79,5 @@ public class TestHoraire {
 		
 	}
 
-
-	
-	
-	
-
-	
-	
-	
-	
-	
 
 }

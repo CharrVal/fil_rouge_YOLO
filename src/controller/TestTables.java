@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 import bll.RestaurantBLL;
 import bll.TableRestaurantBLL;
-import bo.Carte;
 import bo.Restaurant;
 import bo.TableRestaurant;
 import exceptions.RestaurantException;
@@ -16,12 +15,10 @@ public class TestTables {
 	private static RestaurantBLL RestaurantBLL = new RestaurantBLL();
 	
 
+	
 	public static void main(String[] args) throws Exception {
-		
-		scan = new Scanner(System.in);
-				
+		scan = new Scanner(System.in);	
 		afficherMenuAjoutRestaurant();
-		
 		
 	}
 	
@@ -41,7 +38,7 @@ public class TestTables {
 			
 			int idRestaurant = 0;			
 			
-			Carte carte = new Carte();
+			//Carte carte = new Carte();
 			
 			try {
 				Restaurant restaurant = RestaurantBLL.insert(nom, adresse, url_image);
@@ -90,11 +87,5 @@ public class TestTables {
 		TableRestaurantBLL tableRestaurantBLL = new TableRestaurantBLL();
 		tableRestaurantBLL.insert(tablesRestaurant, idRestaurant);
 	}
-	
-	
-	
-	
-	
-	
 
 }

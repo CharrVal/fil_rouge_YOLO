@@ -61,7 +61,7 @@ public class TestAffichage {
 			System.out.print("Veuillez saisir l'url de l'image du restaurant : ");
 			String url_image = scan.nextLine();
 			
-			Carte carte = new Carte(4,"un nom","une description");		
+			//Carte carte = new Carte(4,"un nom","une description");		
 		
 			try {
 				RestaurantBLL.insert(nom, adresse, url_image);
