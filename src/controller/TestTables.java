@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import bll.RestaurantBLL;
 import bll.TableRestaurantBLL;
+import bo.Carte;
 import bo.Restaurant;
 import bo.TableRestaurant;
 import exceptions.RestaurantException;
@@ -40,8 +41,10 @@ public class TestTables {
 			
 			int idRestaurant = 0;			
 			
+			Carte carte = new Carte();
+			
 			try {
-				Restaurant restaurant = RestaurantBLL.insert(nom, adresse, url_image);
+				Restaurant restaurant = RestaurantBLL.insert(nom, adresse, url_image, carte);
 				insertionFailed = false;
 				System.out.println(restaurant.getId());
 				idRestaurant = restaurant.getId();

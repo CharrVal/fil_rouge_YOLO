@@ -11,22 +11,20 @@ import java.util.List;
 import bo.TableRestaurant;
 
 public class TableRestaurantDAO {
-	
 	String url = System.getenv("FIL_ROUGE_URL");
 	String username = System.getenv("FIL_ROUGE_USERNAME");
 	String password = System.getenv("FIL_ROUGE_PASSWORD");
-
+	
 	public List<TableRestaurant> select() {
 		List<TableRestaurant> tablesRestaurant = new ArrayList<>();
-		
 		try {
-			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement("SELECT * FROM tables_restaurant");
 				ResultSet rs = ps.executeQuery();
 				
 				while (rs.next()) {
-					tablesRestaurant.add(convertResultSetToTables(rs));
+					tablesRestaurant.add(convertResultSetToTableRestaurant(rs));
 				}
 			}
 			cnx.close();
@@ -58,9 +56,10 @@ public class TableRestaurantDAO {
 		return tablesRestaurant;
 	}
 
+	
 	public void update(TableRestaurant tableRestaurant) {
 		try {
-			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement(
 						"UPDATE tables_restaurant SET nb_places = ?, numero_table = ? WHERE id = ?");
@@ -76,9 +75,10 @@ public class TableRestaurantDAO {
 		}	
 	}
 
+	
 	public void delete(int id) {
 		try {
-			Connection cnx = DriverManager.getConnection("url;username=username;password=password;trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement("DELETE FROM tables_restaurant WHERE id = ?");
 				ps.setInt(1, id);
@@ -89,12 +89,13 @@ public class TableRestaurantDAO {
 			e.printStackTrace();
 		}
 	}
-	
- 	private TableRestaurant convertResultSetToTables(ResultSet rs) throws SQLException {
-		TableRestaurant tableRestaurant = new TableRestaurant();
-		tableRestaurant.setId(rs.getInt("id"));
-		tableRestaurant.setNbPlaces(rs.getInt("nb_places"));
-		tableRestaurant.setNumeroTable(rs.getInt("numero_table"));
-		return tableRestaurant;
-	} 	
+
+
+ 	private TableRestaurant convertResultSetToTableRestaurant(ResultSet rs) throws SQLException {
+		TableRestaurant restaurant = new TableRestaurant();
+		restaurant.setId(rs.getInt("id"));
+		restaurant.setNbPlaces(rs.getInt("nb_places"));
+		restaurant.setNumeroTable(rs.getInt("numero_table"));
+		return restaurant;
+	}
 }

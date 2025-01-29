@@ -4,15 +4,11 @@ import java.util.List;
 
 import bo.TableRestaurant;
 import dal.TableRestaurantDAO;
+import exceptions.TableRestaurantException;
 
 public class TableRestaurantBLL {
-	
-	public List<TableRestaurant> select() {
-		TableRestaurantDAO dao = new TableRestaurantDAO();
-		return dao.select();
-	}
 
-	public List<TableRestaurant> insert(List<TableRestaurant> tablesRestaurant, int idRestaurant) throws Exception {
+	public List<TableRestaurant> insert(List<TableRestaurant> tablesRestaurant, int idRestaurant) throws TableRestaurantException {
 		
 		//checkTableRestaurant(tableRestaurant);
 		
@@ -28,7 +24,9 @@ public class TableRestaurantBLL {
 		// les if sont à déterminer !
 		//}
 	
-	public void update(TableRestaurant tableRestaurant) { //throws TableRestaurantException {
+
+	
+	public void update(TableRestaurant tableRestaurant) throws TableRestaurantException {
 		//checkTableRestaurant(tableRestaurant);
 		
 		TableRestaurantDAO dao = new TableRestaurantDAO();

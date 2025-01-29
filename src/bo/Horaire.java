@@ -3,7 +3,6 @@ package bo;
 import java.time.LocalDate;
 
 public class Horaire {
-	
 	private int id;
 	private String jour;
 	private LocalDate ouverture;
@@ -15,15 +14,14 @@ public class Horaire {
 		this.ouverture = ouverture;
 		this.fermeture = fermeture;
 	}
-
+	
 	public Horaire(String jour, LocalDate ouverture, LocalDate fermeture) {
 		this.jour = jour;
 		this.ouverture = ouverture;
 		this.fermeture = fermeture;
 	}
-
-	public Horaire() {
-	}
+	
+	public Horaire() {}
 
 	public int getId() {
 		return id;
@@ -59,12 +57,8 @@ public class Horaire {
 
 	@Override
 	public String toString() {
-		return "Horaire id : " + id + ", jour : " + jour + ", ouverture : " + ouverture + ", fermeture : " + fermeture;
+		return "Horaire : " + id + "\n\t• jour :" + jour + "\n\t• ouverture :" + ouverture + "\n\t• fermeture :"
+				+ fermeture;
 	}
 	
-	
-	
-	
-	
-
 }

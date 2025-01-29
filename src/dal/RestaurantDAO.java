@@ -8,14 +8,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import bo.Carte;
 import bo.Restaurant;
-import bo.TableRestaurant;
 
 public class RestaurantDAO {
 	
-	String url = System.getenv("FIL_ROUGE_URL");
-	String username = System.getenv("FIL_ROUGE_USERNAME");
-	String password = System.getenv("FIL_ROUGE_PASSWORD");
+	private String url;
+	private String username;
+	private String password;
+	
+	public RestaurantDAO() {
+		url = System.getenv("FIL_ROUGE_URL");
+		username = System.getenv("FIL_ROUGE_USERNAME");
+		password = System.getenv("FIL_ROUGE_PASSWORD");
+	}
 	
 	public List<Restaurant> select() {
 		List<Restaurant> restaurants = new ArrayList<>();
@@ -23,14 +29,15 @@ public class RestaurantDAO {
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
 			if(!cnx.isClosed()) {
-				PreparedStatement psRestos = cnx.prepareStatement("SELECT * FROM restaurants");
-				ResultSet rsRestos = psRestos.executeQuery();
+				PreparedStatement ps = cnx.prepareStatement("SELECT r.id, r.nom, r.adresse, r.url_image, c.id AS carte_id, c.nom AS carte_nom, c.description AS carte_description " +
+						"FROM restaurants r LEFT JOIN cartes c ON r.id_cartes = c.id");
 				
-				PreparedStatement psTables = cnx.prepareStatement("SELECT * FROM tables_restaurant");
-				ResultSet rsTables = psTables.executeQuery();
+				ResultSet rs = ps.executeQuery();
 				
-				while (rsRestos.next()) {
-					restaurants.add(convertResultSetToRestaurant(rsRestos, rsTables));
+				
+				
+				while (rs.next()) {
+					restaurants.add(convertResultSetToRestaurant(rs));
 				}
 			}
 			cnx.close();
@@ -43,33 +50,19 @@ public class RestaurantDAO {
 	public Restaurant insert(Restaurant restaurant) {
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
+
 			if(!cnx.isClosed()) {
-				PreparedStatement psRestos = cnx.prepareStatement(
+				PreparedStatement ps = cnx.prepareStatement(
 						"INSERT INTO restaurants(nom, adresse, url_image)"
 						+ "VALUES (?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-				psRestos.setString(1, restaurant.getNom());
-				psRestos.setString(2, restaurant.getAdresse());
-				psRestos.setString(3, restaurant.getUrl_image());
-				
-				psRestos.executeUpdate(); 
-				ResultSet rsRestos = psRestos.getGeneratedKeys();
-				if (rsRestos.next()) {
-					restaurant.setId(rsRestos.getInt(1));
+				ps.setString(1, restaurant.getNom());
+				ps.setString(2, restaurant.getAdresse());
+				ps.setString(3, restaurant.getUrl_image());
+				ps.executeUpdate(); 
+				ResultSet rs = ps.getGeneratedKeys();
+				if (rs.next()) {
+					restaurant.getCarte().setId(rs.getInt(1));
 				}
-				
-				for(TableRestaurant tableCurrent : restaurant.getTablesRestaurants()){
-					PreparedStatement psTables = cnx.prepareStatement(
-							"INSERT INTO tables_restaurant(nb_places, numero_table, id_restaurants)"
-							+ "VALUES (?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-					psTables.setInt(1, tableCurrent.getNbPlaces());
-					psTables.setInt(2, tableCurrent.getNumeroTable());
-					psTables.setInt(3, restaurant.getId());
-					
-					psTables.executeUpdate(); 
-				}
-				
-				
-				
 			}
 			cnx.close();
 		} catch (SQLException e) {
@@ -80,7 +73,8 @@ public class RestaurantDAO {
 	
 	public void update(Restaurant restaurant) {
 		try {
-			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");	
+
 			if(!cnx.isClosed()) {
 				PreparedStatement psRestos = cnx.prepareStatement(
 						"UPDATE restaurants SET nom = ?, adresse = ?, url_image = ? WHERE id = ?");
@@ -99,7 +93,9 @@ public class RestaurantDAO {
 	
 	public void delete(int id) {
 		try {
-			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");	
+
+
 			if(!cnx.isClosed()) {
 				PreparedStatement psRestos = cnx.prepareStatement("DELETE FROM restaurants WHERE id = ?");
 				psRestos.setInt(1, id);
@@ -111,14 +107,15 @@ public class RestaurantDAO {
 		}
 	}
 
- 	private Restaurant convertResultSetToRestaurant(ResultSet rsRestos, ResultSet rsTables) throws SQLException {
+ 	private Restaurant convertResultSetToRestaurant(ResultSet rs) throws SQLException {
 		Restaurant restaurant = new Restaurant();
-		restaurant.setId(rsRestos.getInt("id"));
-		restaurant.setNom(rsRestos.getString("nom"));
-		restaurant.setAdresse(rsRestos.getString("adresse"));
-		restaurant.setUrl_image(rsRestos.getString("url_image"));
-		// attribuer la bonne table au bon resto
+		Carte carte = new Carte(rs.getInt("carte_id"),rs.getString("carte_nom"), rs.getString("carte_description"));
+		restaurant.setId(rs.getInt("id"));
+		restaurant.setNom(rs.getString("nom"));
+		restaurant.setAdresse(rs.getString("adresse"));
+		restaurant.setUrl_image(rs.getString("url_image"));
+		restaurant.setCarte(carte);
 		return restaurant;
 	}
-	
+
 }

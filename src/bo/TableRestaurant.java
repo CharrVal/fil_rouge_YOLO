@@ -1,7 +1,6 @@
 package bo;
 
 public class TableRestaurant {
-	
 	private int id;
 	private int nbPlaces;
 	private int numeroTable;
@@ -16,9 +15,8 @@ public class TableRestaurant {
 		this.nbPlaces = nbPlaces;
 		this.numeroTable = numeroTable;
 	}
-
-	public TableRestaurant() {
-	}
+	
+	public TableRestaurant() {}
 
 	public int getId() {
 		return id;
@@ -35,7 +33,7 @@ public class TableRestaurant {
 	public void setNbPlaces(int nbPlaces) {
 		this.nbPlaces = nbPlaces;
 	}
-
+	
 	public int getNumeroTable() {
 		return numeroTable;
 	}
@@ -46,10 +44,6 @@ public class TableRestaurant {
 
 	@Override
 	public String toString() {
-		return "TableRestaurant id : " + id + ", nbPlaces : " + nbPlaces + ", numeroTable : " + numeroTable;
-	}
-	
-	
-	
-
+		return "Table restaurant n°" + id + " :" + "\n\t• nombres de places :" + nbPlaces + "\n\t• numero de table :" + numeroTable;
+	}	
 }
