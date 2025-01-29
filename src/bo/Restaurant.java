@@ -8,22 +8,33 @@ public class Restaurant {
 	private String nom;
 	private String adresse;
 	private String url_image;
-	private List<Carte> cartes = new ArrayList<>();
+	private Carte carte;
 	private List<Horaire> horaires = new ArrayList<>();
 	private List<TableRestaurant> tables = new ArrayList<>();
+	
+	public Restaurant(int id, String nom, String adresse, String url_image, Carte carte) {
+		this.id = id;
+		this.nom = nom;
+		this.adresse = adresse;
+		this.url_image = url_image;
+		this.carte = carte;
+	}
+	
+	public Restaurant(String nom, String adresse, String url_image, Carte carte) {
+		this.nom = nom;
+		this.adresse = adresse;
+		this.url_image = url_image;
+		this.carte = carte;
+	}
+	
+	public Restaurant() {}
 	
 	public Restaurant(int id, String nom, String adresse, String url_image) {
 		this.id = id;
 		this.nom = nom;
+		this.adresse = adresse;
 		this.url_image = url_image;
 	}
-	
-	public Restaurant(String nom, String adresse, String url_image) {
-		this.nom = nom;
-		this.url_image = url_image;
-	}
-	
-	public Restaurant() {}
 
 	public int getId() {
 		return id;
@@ -57,12 +68,12 @@ public class Restaurant {
 		this.url_image = url_image;
 	}
 
-	public List<Carte> getCartes() {
-		return cartes;
+	public Carte getCarte() {
+		return carte;
 	}
 
-	public void setCartes(List<Carte> cartes) {
-		this.cartes = cartes;
+	public void setCarte(Carte carte) {
+		this.carte = carte;
 	}
 
 	public List<Horaire> getHoraires() {
@@ -83,6 +94,7 @@ public class Restaurant {
 
 	@Override
 	public String toString() {
-		return String.format("%-4d %-30s %-30s %-20s %-50s %-20s %-50s\n", id, nom, adresse, cartes, horaires, tables, url_image);
-	}	
+		return String.format("%-4d %-30s %-30s %-20s %-50s %-20s %-50s\n", id, nom, adresse, carte, horaires, tables, url_image);
+	}
+	
 }

@@ -58,8 +58,10 @@ public class TestAffichage {
 			System.out.print("Veuillez saisir l'url de l'image du resto : ");
 			String url_image = scan.nextLine();
 			
+			Carte carte = new Carte(4,"un nom","une description");		
+		
 			try {
-				RestaurantBLL.insert(nom, adresse, url_image);
+				RestaurantBLL.insert(nom, adresse, url_image, carte);
 				insertionFailed = false;
 			} catch (RestaurantException e) {
 				insertionFailed = true;
@@ -165,6 +167,7 @@ public class TestAffichage {
 	    for (Restaurant current : Restaurants) {
 	        System.out.print(current);
 	    }
+	    
 	    System.out.println("+" + "-".repeat(totalLength) + "+");
 	}
 	
