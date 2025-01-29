@@ -169,7 +169,7 @@ public class TestAffichage {
 	private static void afficherRestaurant(List<Restaurant> Restaurants) {
 	    int totalLength = 4 + 30 + 30 + 20 + 50 + 20 + 50;
 	    System.out.println("+" + "-".repeat(totalLength) + "+");
-	    System.out.format("%-4s %-30s %-30s %-20s %-50s %-20s %-50s\n", "id", "nom", "adresse", "cartes", "horaires", "tables", "url_image");
+	    System.out.format("%-4s %-30s %-30s %-20s %-80s %-20s %-50s\n", "id", "nom", "adresse", "cartes", "horaires", "tables", "url_image");
 	    System.out.println("+" + "-".repeat(totalLength) + "+");
 	    for (Restaurant current : Restaurants) {
 	        System.out.print(current);

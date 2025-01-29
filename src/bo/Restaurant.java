@@ -3,6 +3,7 @@ package bo;
 import java.util.ArrayList;
 import java.util.List;
 
+import bll.HoraireBLL;
 import bll.TableRestaurantBLL;
 
 public class Restaurant {
@@ -98,9 +99,19 @@ public class Restaurant {
 		return tablesString;
 	}
 
+	public String afficherHoraires(Restaurant restaurant) {
+		HoraireBLL horaireBLL = new HoraireBLL();
+		List<Horaire> horairesListe = horaireBLL.selectFromRestaurant(restaurant);
+		String horaireString = " ";
+		for(Horaire horaireCurrent : horairesListe) {
+			horaireString += horaireCurrent.getJour() + " : " + horaireCurrent.getOuverture() + " à " + horaireCurrent.getFermeture() + " | ";
+		}
+		return horaireString;
+	}
+
 	@Override
 	public String toString() {
-		return String.format("%-4d %-30s %-30s %-20s %-50s %-20s %-50s\n", id, nom, adresse, carte.getNom(), horaires, afficherTables(this), url_image);
+		return String.format("%-4d %-30s %-30s %-20s %-80s %-20s %-50s\n", id, nom, adresse, carte.getNom(), afficherHoraires(this), afficherTables(this), url_image);
 	}
 
 }

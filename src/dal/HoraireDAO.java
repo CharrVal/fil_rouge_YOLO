@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bo.Horaire;
+import bo.Restaurant;
+import bo.TableRestaurant;
 
 public class HoraireDAO {
 	String url = System.getenv("FIL_ROUGE_URL");
@@ -35,6 +37,27 @@ public class HoraireDAO {
 		return horaires;
 	}
 	
+	
+	public List<Horaire> selectFromRestaurant(Restaurant restaurant) {
+		restaurant.getId()
+;		List<Horaire> horaires = new ArrayList<>();
+		try {
+			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
+			if(!cnx.isClosed()) {
+				PreparedStatement ps = cnx.prepareStatement("SELECT * FROM horaires WHERE id_restaurants=?");
+				ps.setInt(1, restaurant.getId());
+				ResultSet rs = ps.executeQuery();
+				
+				while (rs.next()) {
+					horaires.add(convertResultSetToHoraire(rs));
+				}
+			}
+			cnx.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return horaires;
+	}
 	
 
 	public List<Horaire> insert(List<Horaire> horaires, int idRestaurant) {
