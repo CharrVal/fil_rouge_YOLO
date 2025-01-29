@@ -46,5 +46,4 @@ public class TableRestaurant {
 	public String toString() {
 		return "Table restaurant n°" + id + " :" + "\n\t• nombres de places :" + nbPlaces + "\n\t• numero de table :" + numeroTable;
 	}	
-
 }
