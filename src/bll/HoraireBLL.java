@@ -4,7 +4,10 @@ import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 import bo.Horaire;
+import bo.Restaurant;
+import bo.TableRestaurant;
 import dal.HoraireDAO;
+import dal.TableRestaurantDAO;
 import exceptions.HoraireException;
 
 public class HoraireBLL {
@@ -24,6 +27,16 @@ public class HoraireBLL {
 		return horaires;
 			
 	}
+	
+	
+	
+	public List<Horaire> selectFromRestaurant(Restaurant restaurant) {
+		
+		HoraireDAO dao = new HoraireDAO();
+		return dao.selectFromRestaurant(restaurant);
+		 
+	}
+	
 	
 	
 	public Horaire update(String nom, LocalTime ouverture,LocalTime fermeture) throws HoraireException {
