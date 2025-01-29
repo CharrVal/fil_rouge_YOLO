@@ -39,7 +39,8 @@ public class CarteDAO {
 
 	public Carte insert(Carte carte) {	
 		try {
-			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");	
+
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement(
 						"INSERT INTO cartes(nom, description)"
@@ -62,7 +63,7 @@ public class CarteDAO {
 
 	public void update(Carte carte) {
 		try {
-			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
 
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement(
@@ -81,7 +82,7 @@ public class CarteDAO {
 
 	public void delete(int id) {
 		try {
-			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");	
 
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement("DELETE FROM cartes WHERE id = ?");

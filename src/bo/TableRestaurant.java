@@ -16,8 +16,7 @@ public class TableRestaurant {
 		this.numeroTable = numeroTable;
 	}
 	
-	public TableRestaurant() {
-	}
+	public TableRestaurant() {}
 
 	public int getId() {
 		return id;

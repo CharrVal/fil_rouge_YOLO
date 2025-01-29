@@ -13,9 +13,15 @@ import bo.Restaurant;
 
 public class RestaurantDAO {
 	
-	String url = System.getenv("FIL_ROUGE_URL");
-	String username = System.getenv("FIL_ROUGE_USERNAME");
-	String password = System.getenv("FIL_ROUGE_PASSWORD");
+	private String url;
+	private String username;
+	private String password;
+	
+	public RestaurantDAO() {
+		url = System.getenv("FIL_ROUGE_URL");
+		username = System.getenv("FIL_ROUGE_USERNAME");
+		password = System.getenv("FIL_ROUGE_PASSWORD");
+	}
 	
 	public List<Restaurant> select() {
 		List<Restaurant> restaurants = new ArrayList<>();
@@ -43,6 +49,7 @@ public class RestaurantDAO {
 		try {
 
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
+
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement(
 						"INSERT INTO restaurants(nom, adresse, url_image)"
@@ -68,7 +75,7 @@ public class RestaurantDAO {
 	
 	public void update(Restaurant restaurant) {
 		try {
-			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");	
 
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement(
@@ -88,7 +95,8 @@ public class RestaurantDAO {
 	
 	public void delete(int id) {
 		try {
-			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");	
+
 
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement("DELETE FROM restaurants WHERE id = ?");

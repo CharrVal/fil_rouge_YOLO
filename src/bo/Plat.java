@@ -18,9 +18,11 @@ public class Plat {
 		this.nom = nom;
 		this.prix = prix;
 		this.description = description;
+		this.categorie = categorie;
 	}
 
 	public Plat() {}
+
 
 	public int getId() {
 		return id;
@@ -67,4 +69,3 @@ public class Plat {
 		return String.format("%-4s %-10s %-5s %-20s %-15s\n", id, nom, prix, description, categorie);
 	}
 }
-

@@ -5,6 +5,7 @@ public class Categorie {
 	private int id;
 	private String libelle;
 	
+
 	public Categorie(int id, String libelle) {
 		this.id = id;
 		this.libelle = libelle;
