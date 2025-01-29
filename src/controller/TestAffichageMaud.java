@@ -1,20 +1,30 @@
 package controller;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import bll.CarteBLL;
+import bll.HoraireBLL;
 import bll.PlatBLL;
 import bll.RestaurantBLL;
+import bll.TableRestaurantBLL;
 import bo.Carte;
 import bo.Categorie;
+import bo.Horaire;
 import bo.Plat;
 import bo.Restaurant;
+import bo.TableRestaurant;
 import exceptions.CarteException;
+import exceptions.HoraireException;
 import exceptions.PlatException;
 import exceptions.RestaurantException;
+import exceptions.TableRestaurantException;
 
 public class TestAffichageMaud {
 	private static Scanner scan;
@@ -47,16 +57,18 @@ public class TestAffichageMaud {
 //			case 4: afficherMenuSuppressionRestaurant(); break;
 //			case 5: afficherMenuAjoutCarte(); break;
 //			case 6: afficherMenuModificationCarte(); break;
-//			case 7: afficherMenuAjoutPlat(); break;
-//			case 8: afficherMenuModificationPlat(); break;
+			case 7: afficherMenuAjoutPlat(); break;
+			case 8: afficherMenuModificationPlat(); break;
 			}
-		} while (choix != 7);
+		} while (choix != 9);
 		System.out.println("Merci de votre visite, bonne journée !");
 		scan.close();
 	}
 	
-	private static void afficherMenuAjoutRestaurant() throws RestaurantException {
+	private static void afficherMenuAjoutRestaurant() throws RestaurantException, HoraireException, TableRestaurantException {
 		boolean insertionFailed;
+		int idRestaurant=0;
+		Restaurant restaurant = new Restaurant();
 		do {
 			System.out.print("Veuillez saisir le nom du restaurant : ");
 			String nom = scan.nextLine();
@@ -67,11 +79,12 @@ public class TestAffichageMaud {
 			System.out.print("Veuillez saisir l'url de l'image du restaurant : ");
 			String url_image = scan.nextLine();
 			
-			Carte carte = new Carte(4,"un nom","une description");		
+	
 		
 			try {
-				RestaurantBLL.insert(nom, adresse, url_image);
+				restaurant=RestaurantBLL.insert(nom, adresse, url_image);
 				insertionFailed = false;
+				idRestaurant = restaurant.getId();
 			} catch (RestaurantException e) {
 				insertionFailed = true;
 				System.err.println("Echec de la création du restaurant :");
@@ -81,6 +94,66 @@ public class TestAffichageMaud {
 			
 			
 		} while (insertionFailed);
+		
+		ajoutHoraire(idRestaurant);
+		afficherMenuAjoutTablesDansRestaurant(restaurant, idRestaurant);
+	}
+	
+	private static void ajoutHoraire(int idRestaurant) throws HoraireException {
+		List<String> semaine = Arrays.asList("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche");
+		List<Horaire> horaires = new ArrayList<>();
+		
+		for(String jour:semaine) {
+			System.out.println("Rentrez les horaires du "+jour);
+			
+			System.out.print("ouverture? :");
+			String ouverture = scan.nextLine() ;
+			
+			System.out.print("fermeture? :");
+			String fermeture = scan.nextLine();
+			
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+		    LocalTime ouvert = LocalTime.parse(ouverture, formatter);
+		    LocalTime ferme = LocalTime.parse(fermeture, formatter);
+			Horaire horaire = new Horaire (jour, ouvert, ferme);
+			System.out.println(horaire.toString());
+			horaires.add(horaire);
+		}
+		
+		HoraireBLL horaireBLL = new HoraireBLL();
+		horaireBLL.insert(horaires, idRestaurant);
+		
+	}
+	
+	private static void afficherMenuAjoutTablesDansRestaurant(Restaurant restaurant, int idRestaurant) throws TableRestaurantException {
+		System.out.print("combien de tables dans votre resto ? :");
+		int nbTables = scan.nextInt();
+		scan.nextLine();
+		
+		List<TableRestaurant> tablesRestaurant = new ArrayList<>();
+		
+		do {
+			System.out.print("nb de places de la table ? :");
+			int nbPlaces = scan.nextInt();
+			scan.nextLine();
+			
+			System.out.print("numero de la table ? :");
+			int numeroTable = scan.nextInt();
+			scan.nextLine();
+			
+			TableRestaurant table = new TableRestaurant(nbPlaces, numeroTable);
+			tablesRestaurant.add(table);
+			
+			nbTables--;
+		} while (nbTables > 0);
+		
+		
+		TableRestaurantBLL tableRestaurantBLL = new TableRestaurantBLL();
+		tableRestaurantBLL.insert(tablesRestaurant, idRestaurant);
+		
+		restaurant.setTables(tablesRestaurant);
+		
+		System.out.println(restaurant.getTables());
 	}
 	
 	private static void afficherMenuModificationRestaurant() throws RestaurantException {
@@ -196,11 +269,11 @@ public class TestAffichageMaud {
 			System.out.println("\t3. Supprimer un restaurant existant.");
 			System.out.println("\t4. Créer une carte.");
 			System.out.println("\t5. Modifier une carte.");
-			System.out.println("\6t. Quitter l'application");
+			System.out.println("\t6. Quitter l'application");
 			
-			//System.out.println("\t2. Consulter le restaurant existant.");
-//			System.out.println("\t7. Enregistrer un nouveau plat");
-//			System.out.println("\t8. Modifier un plat");
+			System.out.println("\t2. Consulter le restaurant existant.");
+			System.out.println("\t7. Enregistrer un nouveau plat");
+			System.out.println("\t8. Modifier un plat");
 			System.out.println("");
 			System.out.println("Faites votre choix : ");
 			try {
@@ -211,7 +284,7 @@ public class TestAffichageMaud {
 			} finally {
 				scan.nextLine();
 			}
-		} while (choix < 1 || choix > 7);
+		} while (choix < 1 || choix > 9);
 		return choix;
 	}
 	
