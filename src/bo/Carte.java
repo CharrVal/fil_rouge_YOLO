@@ -54,14 +54,9 @@ public class Carte {
 	public void setPlats(List<Plat> plats) {
 		this.plats = plats;
 	}
-	
 
 	@Override
 	public String toString() {
-		return String.format("\n%-4d %-30s %50s %-30s\n", id, nom, description, plats);
+		return String.format("%-4d %-10s %-25s %-30s", id, nom, description, plats);
 	}
-
-
-	
-	
 }
