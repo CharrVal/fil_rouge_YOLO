@@ -56,6 +56,6 @@ public class Carte {
 
 	@Override
 	public String toString() {
-		return String.format("%-4d %-10s %-25s %-30s\n", id, nom, description, plats);
+		return String.format("%-4d %-10s %-25s %-30s", id, nom, description, plats);
 	}
 }
