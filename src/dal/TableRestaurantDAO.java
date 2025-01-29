@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import bo.Restaurant;
 import bo.TableRestaurant;
 
 public class TableRestaurantDAO {
@@ -21,6 +22,27 @@ public class TableRestaurantDAO {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement("SELECT * FROM tables_restaurant");
+				ResultSet rs = ps.executeQuery();
+				
+				while (rs.next()) {
+					tablesRestaurant.add(convertResultSetToTableRestaurant(rs));
+				}
+			}
+			cnx.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tablesRestaurant;
+	}
+	
+	public List<TableRestaurant> selectFromRestaurant(Restaurant restaurant) {
+		restaurant.getId()
+;		List<TableRestaurant> tablesRestaurant = new ArrayList<>();
+		try {
+			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
+			if(!cnx.isClosed()) {
+				PreparedStatement ps = cnx.prepareStatement("SELECT * FROM tables_restaurant WHERE id_restaurants=?");
+				ps.setInt(1, restaurant.getId());
 				ResultSet rs = ps.executeQuery();
 				
 				while (rs.next()) {
@@ -92,10 +114,10 @@ public class TableRestaurantDAO {
 
 
  	private TableRestaurant convertResultSetToTableRestaurant(ResultSet rs) throws SQLException {
-		TableRestaurant restaurant = new TableRestaurant();
-		restaurant.setId(rs.getInt("id"));
-		restaurant.setNbPlaces(rs.getInt("nb_places"));
-		restaurant.setNumeroTable(rs.getInt("numero_table"));
-		return restaurant;
+		TableRestaurant table = new TableRestaurant();
+		table.setId(rs.getInt("id"));
+		table.setNbPlaces(rs.getInt("nb_places"));
+		table.setNumeroTable(rs.getInt("numero_table"));
+		return table;
 	}
 }

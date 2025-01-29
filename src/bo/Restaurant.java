@@ -3,6 +3,8 @@ package bo;
 import java.util.ArrayList;
 import java.util.List;
 
+import dal.TableRestaurantDAO;
+
 public class Restaurant {
 	private int id;
 	private String nom;
@@ -109,7 +111,8 @@ public class Restaurant {
 
 	@Override
 	public String toString() {
-		return String.format("%-4d %-30s %-30s %-20s %-50s %-20s %-50s\n", id, nom, adresse, carte, horaires, tablesRestaurant, url_image);
+		TableRestaurantDAO tableDAO = new TableRestaurantDAO();
+		return String.format("%-4d %-30s %-30s %-20s %-50s %-20s %-50s\n", id, nom, adresse, carte.getNom(), horaires, tableDAO.selectFromRestaurant(this), url_image);
 	}
 
 }
