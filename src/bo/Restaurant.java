@@ -30,6 +30,12 @@ public class Restaurant {
 		this.horaires=horaires;
 
 	}
+	public Restaurant(String nom, String adresse, String url_image) {
+		this.nom = nom;
+		this.adresse = adresse;
+		this.url_image = url_image;
+		
+	}
 
 	public Restaurant() {}
 	

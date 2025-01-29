@@ -37,29 +37,30 @@ public class HoraireDAO {
 	
 	
 	
-	public Horaire insert(Horaire horaire) {
+	public List<Horaire> insert(List<Horaire> horaires, int idRestaurant) {
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
 			if(!cnx.isClosed()) {
-				PreparedStatement ps = cnx.prepareStatement(
-						"INSERT INTO Horaire(jour, ouverture, fermeture)"
-						+ "VALUES (?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-				ps.setString(1, horaire.getJour());
-				ps.setTime(2, java.sql.Time.valueOf(horaire.getOuverture()));
-				ps.setTime(3, java.sql.Time.valueOf(horaire.getFermeture()));
-
-			
-				ps.executeUpdate();
-				ResultSet rs = ps.getGeneratedKeys();
-				if (rs.next()) {
-					horaire.setId(rs.getInt(1));
+				for(Horaire horaireCurrent:horaires){
+					PreparedStatement psHoraire = cnx.prepareStatement(
+							"INSERT INTO horaires(jour, ouverture, fermeture, id_restaurants)"
+							+ "VALUES (?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+					psHoraire.setString(1, horaireCurrent.getJour());
+					psHoraire.setTime(2, java.sql.Time.valueOf(horaireCurrent.getOuverture()));
+					psHoraire.setTime(3, java.sql.Time.valueOf(horaireCurrent.getFermeture()));
+					psHoraire.setInt(4, idRestaurant);
+					
+					psHoraire.executeUpdate(); 
+		
+	
 				}
 			}
+			
 			cnx.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return horaire;
+		return horaires;
 	}
 	
 	

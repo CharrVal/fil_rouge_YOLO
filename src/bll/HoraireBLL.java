@@ -16,13 +16,13 @@ public class HoraireBLL {
 	}
 	
 	
-	public Horaire insert(String nom, LocalTime ouverture,LocalTime fermeture) throws HoraireException{
+	public List<Horaire> insert(List<Horaire> horaires,int idRestaurant) throws HoraireException{
 		
-		Horaire horaire=new Horaire(nom,ouverture,fermeture);
-		checkHoraire(horaire);
+		//Horaire horaire=new Horaire(nom,ouverture,fermeture);
+		//checkHoraire(horaire);
 		HoraireDAO dao = new HoraireDAO();
-		dao.insert(horaire);
-		return horaire;
+		dao.insert(horaires,idRestaurant);
+		return horaires;
 			
 	}
 	

@@ -55,21 +55,6 @@ public class RestaurantDAO {
 					restaurant.setId(rs.getInt(1));
 				}
 				
-				for(Horaire horaireCurrent:restaurant.getHoraires()){
-					PreparedStatement psHoraire = cnx.prepareStatement(
-							"INSERT INTO horaires(jour, ouverture, fermeture, id_restaurants)"
-							+ "VALUES (?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-					psHoraire.setString(1, horaireCurrent.getJour());
-					psHoraire.setTime(2, java.sql.Time.valueOf(horaireCurrent.getOuverture()));
-					psHoraire.setTime(3, java.sql.Time.valueOf(horaireCurrent.getFermeture()));
-					psHoraire.setInt(4, restaurant.getId());
-					
-					psHoraire.executeUpdate(); 
-					
-					{
-				}
-					
-				}
 			}
 			cnx.close();
 		} catch (SQLException e) {
