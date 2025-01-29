@@ -7,12 +7,14 @@ import dal.CarteDAO;
 import exceptions.CarteException;
 
 public class CarteBLL {
+	
 	public List<Carte> select() {
 		CarteDAO dao = new CarteDAO();
 		return dao.select();
 	}
 
 	public Carte insert(String nom, String description) throws CarteException {
+
 		Carte carte = new Carte(nom, description);
 		checkCarte(carte);
 		

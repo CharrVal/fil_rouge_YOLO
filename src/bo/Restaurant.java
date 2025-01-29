@@ -26,16 +26,9 @@ public class Restaurant {
 		this.url_image = url_image;
 		this.carte = carte;
 	}
-	
+
 	public Restaurant() {}
 	
-	public Restaurant(int id, String nom, String adresse, String url_image) {
-		this.id = id;
-		this.nom = nom;
-		this.adresse = adresse;
-		this.url_image = url_image;
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -44,9 +37,11 @@ public class Restaurant {
 		this.id = id;
 	}
 
+
 	public String getNom() {
 		return nom;
 	}
+
 
 	public void setNom(String nom) {
 		this.nom = nom;
@@ -63,6 +58,7 @@ public class Restaurant {
 	public String getUrl_image() {
 		return url_image;
 	}
+
 
 	public void setUrl_image(String url_image) {
 		this.url_image = url_image;
@@ -92,9 +88,10 @@ public class Restaurant {
 		this.tables = tables;
 	}
 
+	
 	@Override
 	public String toString() {
 		return String.format("%-4d %-30s %-30s %-20s %-50s %-20s %-50s\n", id, nom, adresse, carte, horaires, tables, url_image);
 	}
-	
+
 }

@@ -13,6 +13,7 @@ import bo.Plat;
 import bo.Restaurant;
 import exceptions.CarteException;
 import exceptions.PlatException;
+
 import exceptions.RestaurantException;
 
 public class TestAffichage {
@@ -23,6 +24,7 @@ public class TestAffichage {
 	// private static TableRestaurantBLL TableRestaurantBLL = new TableRestaurantBLL();
 	private static PlatBLL PlatBLL = new PlatBLL();
 	// private static CategorieBLL CategorieBLL = new CategorieBLL();
+
 	
 	public static void main(String[] args) throws Exception {
 		scan = new Scanner(System.in);
@@ -32,6 +34,7 @@ public class TestAffichage {
 			choix = afficherMenu();
 			
 			switch(choix) {
+
 			case 1: afficherMenuAjoutRestaurant(); break;
 			case 2: afficherRestaurant(RestaurantBLL.select()); break;
 			case 3: afficherMenuModificationRestaurant(); break;
@@ -114,7 +117,7 @@ public class TestAffichage {
 			System.out.print("Veuillez saisir la nouvelle url de l'image du resto : ");
 			String url_image = scan.nextLine();
 			
-			Restaurant restoTemp = new Restaurant(choix, nom, adresse, url_image);
+			Restaurant restoTemp = new Restaurant(choix, nom, adresse, url_image, null);
 			
 			try {
 				RestaurantBLL.update(restoTemp);
@@ -373,5 +376,7 @@ public class TestAffichage {
 	        System.out.print(current);
 	    }
 	    System.out.println("+" + "-".repeat(totalLength) + "+");
+
 	}
+	
 }
