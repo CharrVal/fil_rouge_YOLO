@@ -116,8 +116,7 @@ public class RestaurantDAO {
         int carteId = rs.getInt("id_cartes");
         if (!rs.wasNull()) {
             Carte carte = fetchCarteById(carteId);
-            restaurant.setCarte(carte);
-		
+            restaurant.setCarte(carte);	
         }
 
         return restaurant;
