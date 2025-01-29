@@ -6,14 +6,14 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import bll.CarteBLL;
-import bll.RestaurantBLL;
 import bll.PlatBLL;
+import bll.RestaurantBLL;
 import bo.Carte;
+import bo.Categorie;
 import bo.Plat;
 import bo.Restaurant;
 import exceptions.CarteException;
 import exceptions.PlatException;
-
 import exceptions.RestaurantException;
 
 public class TestAffichage {
@@ -120,7 +120,7 @@ public class TestAffichage {
 			System.out.print("Veuillez saisir la nouvelle url de l'image du restaurant : ");
 			String url_image = scan.nextLine();
 			
-			Restaurant restoTemp = new Restaurant(choix, nom, adresse, url_image, null, null);
+			Restaurant restoTemp = new Restaurant(choix, nom, adresse, url_image);
 			
 			try {
 				RestaurantBLL.update(restoTemp);
@@ -298,12 +298,17 @@ public class TestAffichage {
 			
 			System.out.println("Vaillez saisir le prix du plat : ");
 			double prix = scan.nextDouble();
+			scan.nextLine();
 			
 			System.out.print("Veuillez saisir la description du plat : ");
 			String description = scan.nextLine();
 			
+			System.out.print("Veuillez saisir la categorie (entree, plat, dessert, boisson) : ");
+			String choixCategorie = scan.nextLine();
+			Categorie categorie = new Categorie(3, choixCategorie);
+			
 			try {
-				PlatBLL.insert(nom, prix, description, null);
+				PlatBLL.insert(nom, prix, description, categorie);
 				insertionFailed = false;
 			} catch (PlatException e) {
 				insertionFailed = true;

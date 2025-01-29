@@ -12,14 +12,6 @@ public class Restaurant {
 	private List<Horaire> horaires = new ArrayList<>();
 	private List<TableRestaurant> tablesRestaurant = new ArrayList<>();
 	
-	public Restaurant(int id, String nom, String adresse, String url_image, Carte carte, List<TableRestaurant> tablesRestaurant) {
-		this.id = id;
-		this.nom = nom;
-		this.adresse = adresse;
-		this.url_image = url_image;
-		this.carte = carte;
-		this.tablesRestaurant = tablesRestaurant;
-	}
 
 	public Restaurant(int id, String nom, String adresse, String url_image, Carte carte) {
 		this.id = id;

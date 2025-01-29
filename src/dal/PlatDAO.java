@@ -40,11 +40,12 @@ public class PlatDAO {
 				Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 				if(!cnx.isClosed()) {
 					PreparedStatement ps = cnx.prepareStatement(
-							"INSERT INTO plats(nom, prix, description)"
-							+ "VALUES (?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+							"INSERT INTO plats(nom, prix, description, id_categories)"
+							+ "VALUES (?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
 					ps.setString(1, plat.getNom());
 					ps.setDouble(2, plat.getPrix());
 					ps.setString(3, plat.getDescription());
+					ps.setInt(4, plat.getCategorie().getId());
 				
 					ps.executeUpdate();
 					ResultSet rs = ps.getGeneratedKeys();

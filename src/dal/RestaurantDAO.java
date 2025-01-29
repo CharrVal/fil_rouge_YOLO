@@ -61,7 +61,7 @@ public class RestaurantDAO {
 				ps.executeUpdate(); 
 				ResultSet rs = ps.getGeneratedKeys();
 				if (rs.next()) {
-					restaurant.getCarte().setId(rs.getInt(1));
+					restaurant.setId(rs.getInt(1));
 				}
 			}
 			cnx.close();
