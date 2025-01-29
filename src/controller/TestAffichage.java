@@ -12,6 +12,7 @@ import bo.Carte;
 import bo.Categorie;
 import bo.Plat;
 import bo.Restaurant;
+import dal.TableRestaurantDAO;
 import exceptions.CarteException;
 import exceptions.PlatException;
 import exceptions.RestaurantException;
@@ -175,6 +176,9 @@ public class TestAffichage {
 	    }
 	    
 	    System.out.println("+" + "-".repeat(totalLength) + "+");
+	    
+	    
+	    
 	}
 
 	private static int afficherMenu() {

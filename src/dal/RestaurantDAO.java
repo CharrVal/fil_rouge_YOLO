@@ -32,6 +32,7 @@ public class RestaurantDAO {
 				PreparedStatement ps = cnx.prepareStatement("SELECT r.id, r.nom, r.adresse, r.url_image, c.id AS carte_id, c.nom AS carte_nom, c.description AS carte_description " +
 						"FROM restaurants r LEFT JOIN cartes c ON r.id_cartes = c.id");
 				
+				
 				ResultSet rs = ps.executeQuery();
 				
 				

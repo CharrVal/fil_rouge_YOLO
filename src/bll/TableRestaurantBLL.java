@@ -1,7 +1,14 @@
 package bll;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import bo.Restaurant;
 import bo.TableRestaurant;
 import dal.TableRestaurantDAO;
 import exceptions.TableRestaurantException;
@@ -16,6 +23,14 @@ public class TableRestaurantBLL {
 		dao.insert(tablesRestaurant, idRestaurant);
 		
 		return tablesRestaurant;
+	}
+	
+	
+	public List<TableRestaurant> selectFromRestaurant(Restaurant restaurant) {
+		
+		TableRestaurantDAO dao = new TableRestaurantDAO();
+		return dao.selectFromRestaurant(restaurant);
+		 
 	}
 	
 	//private void checkTableRestaurant(TableRestaurant tableRestaurant) throws TableRestaurantException {
