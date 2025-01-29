@@ -300,7 +300,7 @@ public class TestAffichage {
 			String description = scan.nextLine();
 			
 			try {
-				PlatBLL.insert(nom, prix, description);
+				PlatBLL.insert(nom, prix, description, null);
 				insertionFailed = false;
 			} catch (PlatException e) {
 				insertionFailed = true;
@@ -354,7 +354,7 @@ public class TestAffichage {
 			String description = scan.nextLine();
 			
 		
-			Plat platTemp = new Plat(choix, nom, prix, description);
+			Plat platTemp = new Plat(choix, nom, prix, description, null);
 			
 			try {
 				PlatBLL.update(platTemp);
