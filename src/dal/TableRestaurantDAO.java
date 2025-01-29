@@ -8,65 +8,65 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import bo.Carte;
+import bo.TableRestaurant;
 
-public class CarteDAO {
+public class TableRestaurantDAO {
 	String url = System.getenv("FIL_ROUGE_URL");
 	String username = System.getenv("FIL_ROUGE_USERNAME");
 	String password = System.getenv("FIL_ROUGE_PASSWORD");
 	
-	public List<Carte> select() {
-		List<Carte> carte = new ArrayList<>();
-
+	public List<TableRestaurant> select() {
+		List<TableRestaurant> tableRestaurants = new ArrayList<>();
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
-				PreparedStatement ps = cnx.prepareStatement("SELECT * FROM cartes");
+				PreparedStatement ps = cnx.prepareStatement("SELECT * FROM tables_restaurant");
 				ResultSet rs = ps.executeQuery();
 				
 				while (rs.next()) {
-					carte.add(convertResultSetToCartes(rs));
+					tableRestaurants.add(convertResultSetToTableRestaurant(rs));
 				}
 			}
 			cnx.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return carte;
+		return tableRestaurants;
 	}
 
-	public Carte insert(Carte carte) {	
+	public TableRestaurant insert(TableRestaurant tableRestaurant) {
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement(
-						"INSERT INTO cartes(nom, description)"
+						"INSERT INTO tables_restaurant(nb_places, numero_table)"
 						+ "VALUES (?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-				ps.setString(1, carte.getNom());
-				ps.setString(2, carte.getDescription());
-			
+				ps.setInt(1, tableRestaurant.getNbPlaces());
+				ps.setInt(2, tableRestaurant.getNumeroTable());
+
+				
 				ps.executeUpdate();
 				ResultSet rs = ps.getGeneratedKeys();
 				if (rs.next()) {
-					carte.setId(rs.getInt(1));
+					tableRestaurant.setId(rs.getInt(1));
 				}
 			}
 			cnx.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return carte;
+		return tableRestaurant;
 	}
-
-	public void update(Carte carte) {
+	
+	public void update(TableRestaurant tableRestaurant) {
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement(
-						"UPDATE cartes SET nom = ?, description = ? WHERE id = ?");
-				ps.setString(1, carte.getNom());
-				ps.setString(2, carte.getDescription());
-				ps.setInt(3, carte.getId());
+						"UPDATE tables_restaurant SET nb_places = ?, numero_table = ? WHERE id = ?");
+				ps.setInt(1, tableRestaurant.getNbPlaces());
+				ps.setInt(2, tableRestaurant.getNumeroTable());
+				ps.setInt(3, tableRestaurant.getId());
 				
 				ps.executeUpdate();
 			}
@@ -75,12 +75,12 @@ public class CarteDAO {
 			e.printStackTrace();
 		}	
 	}
-
+	
 	public void delete(int id) {
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
-				PreparedStatement ps = cnx.prepareStatement("DELETE FROM cartes WHERE id = ?");
+				PreparedStatement ps = cnx.prepareStatement("DELETE FROM tables_restaurant WHERE id = ?");
 				ps.setInt(1, id);
 				ps.executeUpdate();
 			}
@@ -89,12 +89,12 @@ public class CarteDAO {
 			e.printStackTrace();
 		}
 	}
-	
- 	private Carte convertResultSetToCartes(ResultSet rs) throws SQLException {
-		Carte carte = new Carte();
-		carte.setId(rs.getInt("id"));
-		carte.setNom(rs.getString("nom"));
-		carte.setDescription(rs.getString("description"));
-		return carte;
-	} 	
+
+ 	private TableRestaurant convertResultSetToTableRestaurant(ResultSet rs) throws SQLException {
+		TableRestaurant restaurant = new TableRestaurant();
+		restaurant.setId(rs.getInt("id"));
+		restaurant.setNbPlaces(rs.getInt("nb_places"));
+		restaurant.setNumeroTable(rs.getInt("numero_table"));
+		return restaurant;
+	}
 }

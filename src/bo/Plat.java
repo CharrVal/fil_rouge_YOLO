@@ -1,26 +1,26 @@
 package bo;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Carte {
+public class Plat {
 	private int id;
 	private String nom;
+	private double prix;
 	private String description;
-	private List<Plat> plats = new ArrayList<>();
+	private Categorie categorie;
 	
-	public Carte(int id, String nom, String description) {
+	public Plat(int id, String nom, double prix, String description) {
 		this.id = id;
 		this.nom = nom;
+		this.prix = prix;
 		this.description = description;
 	}
-	
-	public Carte(String nom, String description) {
+
+	public Plat(String nom, double prix, String description) {
 		this.nom = nom;
+		this.prix = prix;
 		this.description = description;
 	}
-	
-	public Carte() {}
+
+	public Plat() {}
 
 	public int getId() {
 		return id;
@@ -38,6 +38,14 @@ public class Carte {
 		this.nom = nom;
 	}
 
+	public double getPrix() {
+		return prix;
+	}
+
+	public void setPrix(double prix) {
+		this.prix = prix;
+	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -46,16 +54,17 @@ public class Carte {
 		this.description = description;
 	}
 
-	public List<Plat> getPlats() {
-		return plats;
+	public Categorie getCategorie() {
+		return categorie;
 	}
 
-	public void setPlats(List<Plat> plats) {
-		this.plats = plats;
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("%-4d %-10s %-25s %-30s", id, nom, description, plats);
+		return String.format("%-4s %-10s %-5s %-20s %-15s\n", id, nom, prix, description, categorie);
 	}
 }
+

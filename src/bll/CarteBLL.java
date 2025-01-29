@@ -12,24 +12,24 @@ public class CarteBLL {
 		return dao.select();
 	}
 
-	public Carte insert(String nom, String description) throws Exception {
-		Carte restaurant = new Carte(nom, description);
-		checkCartes(restaurant);
+	public Carte insert(String nom, String description) throws CarteException {
+		Carte carte = new Carte(nom, description);
+		checkCarte(carte);
 		
 		CarteDAO dao = new CarteDAO();
-		dao.insert(restaurant);
+		dao.insert(carte);
 		
-		return restaurant;
+		return carte;
 	}
 	
-	private void checkCartes(Carte carte) throws CarteException {
+	private void checkCarte(Carte carte) throws CarteException {
 		// if (cartes.getNom() == null || cartes.getNom().length() < 2 || cartes.getNom().length() > 20) {
 			// throw new CartesException("Le nom doit faire entre 2 et 20 caractères.");
 		// les if sont à déterminer !
 		}
 	
 	public void update(Carte carte) throws CarteException {
-		checkCartes(carte);
+		checkCarte(carte);
 		
 		CarteDAO dao = new CarteDAO();
 		dao.update(carte);

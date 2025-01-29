@@ -8,48 +8,55 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import bo.Carte;
 import bo.Restaurant;
 
 public class RestaurantDAO {
 	
+	String url = System.getenv("FIL_ROUGE_URL");
+	String username = System.getenv("FIL_ROUGE_USERNAME");
+	String password = System.getenv("FIL_ROUGE_PASSWORD");
+	
 	public List<Restaurant> select() {
-		List<Restaurant> restaurant = new ArrayList<>();
-		
+		List<Restaurant> restaurants = new ArrayList<>();
 		try {
-			Connection cnx = DriverManager.getConnection("jdbc:sqlserver://Ouessant-10;databasename=DEMO_YOLO;username=Utilisateur1;password=Utilisateur1;trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
-				PreparedStatement ps = cnx.prepareStatement("SELECT * FROM restaurants");
+				PreparedStatement ps = cnx.prepareStatement("SELECT r.id, r.nom, r.adresse, r.url_image, c.id AS carte_id, c.nom AS carte_nom, c.description AS carte_description " +
+						"FROM restaurants r LEFT JOIN cartes c ON r.id_cartes = c.id");
+				
 				ResultSet rs = ps.executeQuery();
 				
 				while (rs.next()) {
-					restaurant.add(convertResultSetToRestaurant(rs));
+					restaurants.add(convertResultSetToRestaurant(rs));
 				}
 			}
 			cnx.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return restaurant;
+		return restaurants;
 	}
 
 	public Restaurant insert(Restaurant restaurant) {
 		try {
-			Connection cnx = DriverManager.getConnection("jdbc:sqlserver://Ouessant-10;databasename=DEMO_YOLO;username=Utilisateur1;password=Utilisateur1;trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement(
-						"INSERT INTO restaurants(nom, url_image, id_cartes)"
-						+ "VALUES (?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-				ps.setString(1, restaurant.getNom());
-				ps.setString(2, restaurant.getUrl_image());
-				ps.setInt(3, restaurant.getId_cartes());
-				// pour une date ps.setDate(n°?, Date.valueof(bo_restaurants.getDate()));
+						"INSERT INTO cartes(nom, description)"
+						+ "VALUES (?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+				ps.setString(1, restaurant.getCarte().getNom());
+				ps.setString(2, restaurant.getCarte().getDescription());
 				
-				ps.executeUpdate(); // Methode pour executer un INSERT, un UPDATE ou un DELETE.
+				ps.executeUpdate();
+				
 				ResultSet rs = ps.getGeneratedKeys();
 				if (rs.next()) {
-					restaurant.setId(rs.getInt(1));
-				}
+					restaurant.getCarte().setId(rs.getInt(1));
 			}
+
+				}
+						
 			cnx.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -59,13 +66,13 @@ public class RestaurantDAO {
 	
 	public void update(Restaurant restaurant) {
 		try {
-			Connection cnx = DriverManager.getConnection("jdbc:sqlserver://Ouessant-10;databasename=DEMO_YOLO;username=Utilisateur1;password=Utilisateur1;trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement(
-						"UPDATE restaurants SET nom = ?, url_image = ?, id_cartes = ? WHERE id = ?");
+						"UPDATE restaurants SET nom = ?, adresse = ?, url_image = ? WHERE id = ?");
 				ps.setString(1, restaurant.getNom());
-				ps.setString(2, restaurant.getUrl_image());
-				ps.setInt(3, restaurant.getId_cartes());
+				ps.setString(2, restaurant.getAdresse());
+				ps.setString(3, restaurant.getUrl_image());
 				ps.setInt(4, restaurant.getId());
 				
 				ps.executeUpdate();
@@ -78,7 +85,7 @@ public class RestaurantDAO {
 	
 	public void delete(int id) {
 		try {
-			Connection cnx = DriverManager.getConnection("jdbc:sqlserver://Ouessant-10;databasename=DEMO_YOLO;username=Utilisateur1;password=Utilisateur1;trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement("DELETE FROM restaurants WHERE id = ?");
 				ps.setInt(1, id);
@@ -92,11 +99,12 @@ public class RestaurantDAO {
 
  	private Restaurant convertResultSetToRestaurant(ResultSet rs) throws SQLException {
 		Restaurant restaurant = new Restaurant();
+		Carte carte = new Carte(rs.getInt("carte_id"),rs.getString("carte_nom"), rs.getString("carte_description"));
 		restaurant.setId(rs.getInt("id"));
 		restaurant.setNom(rs.getString("nom"));
+		restaurant.setAdresse(rs.getString("adresse"));
 		restaurant.setUrl_image(rs.getString("url_image"));
-		restaurant.setId_cartes(rs.getInt("id_cartes"));
+		restaurant.setCarte(carte);
 		return restaurant;
 	}
-	
 }
