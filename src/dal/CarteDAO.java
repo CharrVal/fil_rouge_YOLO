@@ -11,32 +11,33 @@ import java.util.List;
 import bo.Carte;
 
 public class CarteDAO {
-	
+
 	String url = System.getenv("FIL_ROUGE_URL");
 	String username = System.getenv("FIL_ROUGE_USERNAME");
 	String password = System.getenv("FIL_ROUGE_PASSWORD");
-
+	
 	public List<Carte> select() {
-		List<Carte> cartes = new ArrayList<>();
-		
+		List<Carte> carte = new ArrayList<>();
+
 		try {
-			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
+			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
+
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement("SELECT * FROM cartes");
 				ResultSet rs = ps.executeQuery();
 				
 				while (rs.next()) {
-					cartes.add(convertResultSetToCartes(rs));
+					carte.add(convertResultSetToCartes(rs));
 				}
 			}
 			cnx.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return cartes;
+		return carte;
 	}
 
-	public Carte insert(Carte carte) {
+	public Carte insert(Carte carte) {	
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");	
 
@@ -82,6 +83,7 @@ public class CarteDAO {
 	public void delete(int id) {
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");	
+
 			if(!cnx.isClosed()) {
 				PreparedStatement ps = cnx.prepareStatement("DELETE FROM cartes WHERE id = ?");
 				ps.setInt(1, id);
