@@ -44,12 +44,12 @@ public class TestTables {
 			int numeroTable = scan.nextInt();
 			scan.nextLine();
 			
-			List<TableRestaurant> tables = new ArrayList<>();
+			List<TableRestaurant> tablesRestaurant = new ArrayList<>();
 			TableRestaurant table = new TableRestaurant(nbPlaces, numeroTable);
-			tables.add(table);
+			tablesRestaurant.add(table);
 			
 			try {
-				RestaurantBLL.insert(nom, adresse, url_image, tables);
+				RestaurantBLL.insert(nom, adresse, url_image, tablesRestaurant);
 				insertionFailed = false;
 			} catch (RestaurantException e) {
 				insertionFailed = true;
