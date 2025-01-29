@@ -12,14 +12,14 @@ public class TableRestaurantBLL {
 		return dao.select();
 	}
 
-	public TableRestaurant insert(int nbPlaces, int numeroTable) throws Exception {
-		TableRestaurant tableRestaurant = new TableRestaurant(nbPlaces, numeroTable);
+	public List<TableRestaurant> insert(List<TableRestaurant> tablesRestaurant, int idRestaurant) throws Exception {
+		
 		//checkTableRestaurant(tableRestaurant);
 		
 		TableRestaurantDAO dao = new TableRestaurantDAO();
-		dao.insert(tableRestaurant);
+		dao.insert(tablesRestaurant, idRestaurant);
 		
-		return tableRestaurant;
+		return tablesRestaurant;
 	}
 	
 	//private void checkTableRestaurant(TableRestaurant tableRestaurant) throws TableRestaurantException {

@@ -36,27 +36,26 @@ public class TableRestaurantDAO {
 		return tablesRestaurant;
 	}
 
-	public TableRestaurant insert(TableRestaurant tableRestaurant) {
+	public List<TableRestaurant> insert(List<TableRestaurant> tablesRestaurant, int idRestaurant) {
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password + ";trustservercertificate=true");
 			if(!cnx.isClosed()) {
-				PreparedStatement ps = cnx.prepareStatement(
-						"INSERT INTO tables_restaurant(nb_places, numero_table, id_restaurants)"
-						+ "VALUES (?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-				ps.setInt(1, tableRestaurant.getNbPlaces());
-				ps.setInt(2, tableRestaurant.getNumeroTable());
-			
-				ps.executeUpdate();
-				ResultSet rs = ps.getGeneratedKeys();
-				if (rs.next()) {
-					tableRestaurant.setId(rs.getInt(1));
+				for(TableRestaurant tableCurrent : tablesRestaurant){
+					PreparedStatement psTables = cnx.prepareStatement(
+							"INSERT INTO tables_restaurant(nb_places, numero_table, id_restaurants)"
+							+ "VALUES (?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+					psTables.setInt(1, tableCurrent.getNbPlaces());
+					psTables.setInt(2, tableCurrent.getNumeroTable());
+					psTables.setInt(3, idRestaurant);
+					
+					psTables.executeUpdate(); 
 				}
 			}
 			cnx.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return tableRestaurant;
+		return tablesRestaurant;
 	}
 
 	public void update(TableRestaurant tableRestaurant) {

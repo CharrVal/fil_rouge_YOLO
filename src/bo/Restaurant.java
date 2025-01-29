@@ -20,6 +20,19 @@ public class Restaurant {
 		this.url_image = url_image;
 		this.tablesRestaurants = tablesRestaurants;
 	}
+
+	public Restaurant(int id, String nom, String adresse, String url_image) {
+		this.id = id;
+		this.nom = nom;
+		this.adresse = adresse;
+		this.url_image = url_image;
+	}
+
+	public Restaurant(String nom, String adresse, String url_image) {
+		this.nom = nom;
+		this.adresse = adresse;
+		this.url_image = url_image;
+	}
 	
 	
 	public Restaurant(String nom, String adresse, String url_image, List<TableRestaurant> tablesRestaurants) {

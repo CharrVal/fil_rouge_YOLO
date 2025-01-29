@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import bll.RestaurantBLL;
+import bll.TableRestaurantBLL;
+import bo.Restaurant;
 import bo.TableRestaurant;
 import exceptions.RestaurantException;
 
@@ -17,14 +19,14 @@ public class TestTables {
 		
 		scan = new Scanner(System.in);
 				
-		afficherMenuAjout();
+		afficherMenuAjoutRestaurant();
 		
 		
 	}
 	
 	
 	
-	private static void afficherMenuAjout() throws Exception {
+	private static void afficherMenuAjoutRestaurant() throws Exception {
 		boolean insertionFailed;
 		do {
 			System.out.print("Veuillez saisir le nom du nouveau resto : ");
@@ -36,6 +38,37 @@ public class TestTables {
 			System.out.print("Veuillez saisir l'url de l'image du resto : ");
 			String url_image = scan.nextLine();
 			
+			int idRestaurant = 0;			
+			
+			try {
+				Restaurant restaurant = RestaurantBLL.insert(nom, adresse, url_image);
+				insertionFailed = false;
+				System.out.println(restaurant.getId());
+				idRestaurant = restaurant.getId();
+				
+			} catch (RestaurantException e) {
+				insertionFailed = true;
+				System.err.println("Echec de la création du resto :");
+				System.err.println(e.getMessage());
+			} 
+			
+			
+			afficherMenuAjoutTablesDansRestaurant(idRestaurant);
+			
+			
+		} while (insertionFailed);
+	}
+
+
+
+	private static void afficherMenuAjoutTablesDansRestaurant(int idRestaurant) throws Exception {
+		System.out.print("combien de tables dans votre resto ? :");
+		int nbTables = scan.nextInt();
+		scan.nextLine();
+		
+		List<TableRestaurant> tablesRestaurant = new ArrayList<>();
+		
+		do {
 			System.out.print("nb de places de la table ? :");
 			int nbPlaces = scan.nextInt();
 			scan.nextLine();
@@ -44,19 +77,15 @@ public class TestTables {
 			int numeroTable = scan.nextInt();
 			scan.nextLine();
 			
-			List<TableRestaurant> tablesRestaurant = new ArrayList<>();
 			TableRestaurant table = new TableRestaurant(nbPlaces, numeroTable);
 			tablesRestaurant.add(table);
 			
-			try {
-				RestaurantBLL.insert(nom, adresse, url_image, tablesRestaurant);
-				insertionFailed = false;
-			} catch (RestaurantException e) {
-				insertionFailed = true;
-				System.err.println("Echec de la création du resto :");
-				System.err.println(e.getMessage());
-			}
-		} while (insertionFailed);
+			nbTables--;
+		} while (nbTables > 0);
+		
+		
+		TableRestaurantBLL tableRestaurantBLL = new TableRestaurantBLL();
+		tableRestaurantBLL.insert(tablesRestaurant, idRestaurant);
 	}
 	
 	

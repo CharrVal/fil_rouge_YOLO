@@ -21,13 +21,14 @@ public class RestaurantBLL {
 	 * url_image fait plus de 10 caractères,
 	 * id_cartes supérieur ou égale à 1 inférieur ou égal à 3.
 	 */
-	public Restaurant insert(String nom, String adresse, String url_image, List<TableRestaurant> tablesRestaurant) throws Exception {
-		Restaurant restaurant = new Restaurant(nom, adresse, url_image, tablesRestaurant);
+	public Restaurant insert(String nom, String adresse, String url_image) throws Exception {
+		Restaurant restaurant = new Restaurant(nom, adresse, url_image);
 		checkRestaurants(restaurant);
 		
 		RestaurantDAO dao = new RestaurantDAO();
 		dao.insert(restaurant);
 		
+		System.out.println(restaurant.getId());
 		return restaurant;
 	}
 	

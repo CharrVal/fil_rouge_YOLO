@@ -51,6 +51,9 @@ public class TestAffichage {
 				System.err.println("Echec de la création du resto :");
 				System.err.println(e.getMessage());
 			}
+			
+			
+			
 		} while (insertionFailed);
 	}
 
