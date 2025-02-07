@@ -36,8 +36,8 @@ public class TableRestaurantDAO {
 	}
 	
 	public List<TableRestaurant> selectFromRestaurant(Restaurant restaurant) {
-		restaurant.getId()
-;		List<TableRestaurant> tablesRestaurant = new ArrayList<>();
+		restaurant.getId();
+		List<TableRestaurant> tablesRestaurant = new ArrayList<>();
 		try {
 			Connection cnx = DriverManager.getConnection(url + ";username=" + username + ";password=" + password +";trustservercertificate=true");
 			if(!cnx.isClosed()) {

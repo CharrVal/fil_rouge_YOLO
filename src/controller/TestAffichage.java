@@ -62,7 +62,7 @@ public class TestAffichage {
 			System.out.print("Veuillez saisir l'url de l'image du restaurant : ");
 			String url_image = scan.nextLine();
 			
-			//Carte carte = new Carte(4,"un nom","une description");		
+			Carte carte = new Carte(4,"un nom","une description");		
 		
 			try {
 				RestaurantBLL.insert(nom, adresse, url_image);
@@ -169,7 +169,7 @@ public class TestAffichage {
 	private static void afficherRestaurant(List<Restaurant> Restaurants) {
 	    int totalLength = 4 + 30 + 30 + 20 + 50 + 20 + 50;
 	    System.out.println("+" + "-".repeat(totalLength) + "+");
-	    System.out.format("%-4s %-30s %-30s %-20s %-80s %-20s %-50s\n", "id", "nom", "adresse", "cartes", "horaires", "tables", "url_image");
+	    System.out.format("%-4s %-30s %-30s %-20s %-50s %-20s %-50s\n", "id", "nom", "adresse", "cartes", "horaires", "tables", "url_image");
 	    System.out.println("+" + "-".repeat(totalLength) + "+");
 	    for (Restaurant current : Restaurants) {
 	        System.out.print(current);
